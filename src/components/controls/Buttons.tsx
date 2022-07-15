@@ -1,3 +1,4 @@
+import { Button } from "@mantine/core";
 import { PointerEvent } from "react";
 
 interface ButtonsProps {
@@ -22,10 +23,15 @@ const Buttons = ({handleButton}: ButtonsProps) => {
 
   return ( 
     <div className="btns">
-      <button name="sort" className="ctrl-btn" type="button" onClick={handleButton}>Sort</button>
+      <Button name="sort" className="ctrl-btn" type="button" onClick={handleButton}>Sort</Button>
+      <Button name="save" className="ctrl-btn" type="button" onClick={handleButton}>Save</Button>
+      <Button name="reset" className="ctrl-btn" type="button" onClick={handleButton}>Reset</Button>
+      <Button name="refresh" className="ctrl-btn" type="button" onClick={handleButton}>Refresh</Button>
+
+      {/* <button name="sort" className="ctrl-btn" type="button" onClick={handleButton}>Sort</button>
       <button name="save" className="ctrl-btn" type="button" onClick={handleButton}>Save</button>
       <button name="reset" className="ctrl-btn" type="button" onClick={handleButton}>Reset</button>
-      <button name="refresh" className="ctrl-btn" type="button" onClick={handleButton}>Refresh</button>
+      <button name="refresh" className="ctrl-btn" type="button" onClick={handleButton}>Refresh</button> */}
     </div>
   );
 }

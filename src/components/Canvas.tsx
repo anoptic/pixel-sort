@@ -14,7 +14,7 @@ const displayImage = new window.Image();
 const Canvas = ({sortedImage, setImageData}: ImageProps) => { 
   // console.log('canvas prop', sortedImage);
   const canvasRef = useRef<HTMLCanvasElement>({} as HTMLCanvasElement);
-  const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
+  // const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
   
   useEffect(() => {
       const imgCanvas = canvasRef.current;
@@ -22,6 +22,7 @@ const Canvas = ({sortedImage, setImageData}: ImageProps) => {
       // setContext(imgContext);
       
       if (imgContext) {
+        console.log('context created');
         if (sortedImage) {
           const sortedCanvas = imgContext.createImageData(720, 480);
           sortedCanvas.data.forEach((_, i) => {

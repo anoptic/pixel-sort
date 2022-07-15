@@ -1,7 +1,7 @@
 const imagePrep = (imageData: Uint8ClampedArray) => {
   const pixelize = (data: Uint8ClampedArray) => {
     let pixel: number[] = [];
-    let rgbPixels: typeof pixel[] = [];
+    const rgbPixels: typeof pixel[] = [];
     data.forEach(el => {
       pixel.push(el);
       if (pixel.length === 4) {
@@ -18,8 +18,8 @@ const imagePrep = (imageData: Uint8ClampedArray) => {
   }
   
   const rgb2hsl = (pixel: number[], index: number) => {
-    let r = pixel[0]/255, g = pixel[1]/255, b = pixel[2]/255;
-    let cmin = Math.min(r,g,b), cmax = Math.max(r,g,b), delta = (cmax-cmin);
+    const r = pixel[0]/255, g = pixel[1]/255, b = pixel[2]/255;
+    const cmin = Math.min(r,g,b), cmax = Math.max(r,g,b), delta = (cmax-cmin);
     let l = (cmax + cmin) / 2;
     let s = !delta ? 0 : delta / (1 - Math.abs(2 * l - 1));
     let h = !delta ? 0 : cmax==r ? (g-b)/delta : cmax==g ? 2+(b-r)/delta : 4+(r-g)/delta;
