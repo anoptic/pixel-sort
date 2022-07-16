@@ -1,4 +1,4 @@
-import { Github } from "@geist-ui/icons";
+import Github from "@geist-ui/icons/github";
 
 const LinkIcon = () => { 
   // console.log(props);

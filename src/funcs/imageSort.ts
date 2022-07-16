@@ -1,26 +1,27 @@
 import {
   SortDir,
   SortMode,
-  RangeThreshold,
+  SortThreshold,
 } from '../components/controls/Controls';
+import { PixelChoice } from '../components/Sorter';
 
 type PixelArray = number[][][];
 type RowArray = number[][];
 type FlatArray = number[];
 interface ImageSortProps {
-  pixelData: RowArray;
+  pixelChoice: PixelChoice;
   sortDir: SortDir;
   sortMode: SortMode;
-  threshold: RangeThreshold;
+  threshold: SortThreshold;
 }
 
 const imageSort = ({
-  pixelData,
+  pixelChoice,
   sortDir,
   sortMode,
   threshold,
 }: ImageSortProps) => {
-  // console.log(sortMode);
+  // console.log(pixelData);
   const makeRows = (pixels: typeof pixelData) => {
     let row: RowArray = [];
     const imgRows: PixelArray = [];
@@ -102,16 +103,42 @@ const imageSort = ({
   };
 
   const showSorted = (rows: PixelArray) => {
+    // console.log(rows);
+    let sortedFlat = [];
     const sortedPixels = [...rows.flat()];
-    const sortedFlat = [...sortedPixels.flat()];
+
+    if (sortMode.mode === 'hsl') {
+      const convertedPixels: RowArray = [];
+      const rgb = convertRGB(sortedPixels);
+
+      // console.log('sortedPixels', sortedPixels);
+      rgb.forEach((p) => {
+        convertedPixels.push(pixelChoice.rgb[p]);
+      });
+      // console.log('convertedPixels', convertedPixels);
+
+      sortedFlat = [...convertedPixels.flat()];
+    } else {
+      sortedFlat = [...sortedPixels.flat()];
+    }
+
+    // const sortedFlat = [...sortedPixels.flat()];
 
     return sortedFlat;
   };
 
-  // const convertRGB = (blob: number[][]) => {
-  // 	return blob.map(el => el[3]);
-  // };
+  const convertRGB = (hslPixels: number[][]) => {
+    return hslPixels.map((el) => el[3]);
+  };
 
+  const choosePixels = () => {
+    if (sortMode.mode === 'hsl') {
+      return pixelChoice.hsl;
+    }
+    return pixelChoice.rgb;
+  };
+
+  const pixelData = choosePixels();
   const imageRows = makeRows(pixelData);
   let sortedImg: PixelArray = [];
   switch (sortDir) {

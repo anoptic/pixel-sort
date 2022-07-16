@@ -1,6 +1,6 @@
 import '@fontsource/lato';
 import { MantineProvider, MantineThemeOverride } from '@mantine/core';
-import Header from './components/Header';
+import Header from './components/header/Header';
 import Sorter from './components/Sorter';
 
 const newTheme: MantineThemeOverride = {

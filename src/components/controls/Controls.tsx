@@ -39,12 +39,17 @@ const Controls = ({ pixelChoice, setSortedImage }: ControlsProps) => {
       case 'Sort': {
         let imageSorted, pixelData;
         if (pixelChoice) {
-          if (sortMode.mode === 'rgb') {
-            pixelData = pixelChoice.rgb;
-          } else {
-            pixelData = pixelChoice.hsl;
-          }
-          imageSorted = imageSort({ pixelData, sortDir, sortMode, threshold });
+          // if (sortMode.mode === 'rgb') {
+          //   pixelData = pixelChoice.rgb;
+          // } else {
+          //   pixelData = pixelChoice.hsl;
+          // }
+          imageSorted = imageSort({
+            pixelChoice,
+            sortDir,
+            sortMode,
+            threshold,
+          });
           setSortedImage(imageSorted);
         }
         break;

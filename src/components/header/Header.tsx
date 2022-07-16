@@ -1,6 +1,6 @@
 import { Text } from '@mantine/core';
-import LinkIcon from './controls/LinkIcon';
-import ModeSwitch from './controls/ModeSwitch';
+import LinkIcon from './LinkIcon';
+import ModeSwitch from './ModeSwitch';
 
 const Header = () => {
   // console.log(props);
