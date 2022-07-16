@@ -12,6 +12,7 @@ const Sorter = () => {
   const [imageData, setImageData] = useState<Uint8ClampedArray | null>(null);
   const [sortedImage, setSortedImage] = useState<number[] | undefined>(undefined);
   const [pixelChoice, setPixelChoice] = useState<PixelChoice | null>(null);
+  const [imageDL, setImageDL] = useState<string | null>(null);
   // console.log(props);
 
   useEffect(() => {
@@ -24,8 +25,16 @@ const Sorter = () => {
 
   return (
     <main>
-      <Canvas sortedImage={sortedImage} setImageData={setImageData} />
-      <Controls pixelChoice={pixelChoice} setSortedImage={setSortedImage} />
+      <Canvas
+        sortedImage={sortedImage}
+        setImageData={setImageData}
+        setImageDL={setImageDL}
+      />
+      <Controls
+        pixelChoice={pixelChoice}
+        setSortedImage={setSortedImage}
+        imageDL={imageDL}
+      />
     </main>
   );
 };

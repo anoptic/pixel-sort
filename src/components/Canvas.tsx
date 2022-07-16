@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 interface ImageProps {
   sortedImage?: number[];
   setImageData: (imageData: Uint8ClampedArray) => void;
+  setImageDL: (imageDL: string | null) => void;
 }
 
 const initImage = {
@@ -11,7 +12,7 @@ const initImage = {
 };
 const displayImage = new window.Image();
 
-const Canvas = ({ sortedImage, setImageData }: ImageProps) => {
+const Canvas = ({ sortedImage, setImageData, setImageDL }: ImageProps) => {
   // console.log('canvas prop', sortedImage);
   const canvasRef = useRef<HTMLCanvasElement>({} as HTMLCanvasElement);
   // const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
@@ -36,6 +37,7 @@ const Canvas = ({ sortedImage, setImageData }: ImageProps) => {
           setImageData(imageData.data);
         };
       }
+      setImageDL(imgCanvas.toDataURL());
     }
   }, [sortedImage]);
 
@@ -49,7 +51,7 @@ const Canvas = ({ sortedImage, setImageData }: ImageProps) => {
         width={720}
         height={480}
       ></canvas>
-      <figcaption>A picture of heads</figcaption>
+      <figcaption>Colorful heads</figcaption>
     </figure>
   );
 };

@@ -13,7 +13,7 @@ const Btn = ({ name, label, handleButton }: BtnProps) => {
 
   return (
     <>
-      <Tooltip label={label}>
+      <Tooltip label={label} withArrow>
         <Button
           name={name}
           className="ctrl-btn"

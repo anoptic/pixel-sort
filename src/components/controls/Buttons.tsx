@@ -16,7 +16,7 @@ const Buttons = ({ handleButton }: ButtonsProps) => {
         handleButton={handleButton}
       />
 
-      <Btn name="Save" label="Save image" handleButton={handleButton} />
+      <Btn name="Save" label="Download image" handleButton={handleButton} />
 
       <Btn
         name="Reset"

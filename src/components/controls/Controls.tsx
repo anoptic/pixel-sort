@@ -8,6 +8,7 @@ import { PixelChoice } from '../Sorter';
 interface ControlsProps {
   pixelChoice: PixelChoice | null;
   setSortedImage: (sortedImage: number[] | undefined) => void;
+  imageDL: string | null;
 }
 export type SortDir = 'horz' | 'vert' | 'hove';
 export type ModeValue = 'r' | 'g' | 'b' | 'h' | 's' | 'l';
@@ -20,42 +21,50 @@ export interface SortThreshold {
   value: number;
 }
 
-const Controls = ({ pixelChoice, setSortedImage }: ControlsProps) => {
+const Controls = ({ pixelChoice, setSortedImage, imageDL }: ControlsProps) => {
   // console.log('pixelData', pixelData);
   const [sortDir, setSortDir] = useState<SortDir>('vert');
   const [modeValue, setModeValue] = useState<ModeValue>('r');
-  const [sortMode, setSortMode] = useState<SortMode>({ 
-    mode: 'rgb', 
-    value: 0 
+  const [sortMode, setSortMode] = useState<SortMode>({
+    mode: 'rgb',
+    value: 0,
   });
   const [threshold, setThreshold] = useState<SortThreshold>({
     inverted: false,
     value: 127,
   });
 
+  const sortImage = () => {
+    if (pixelChoice) {
+      const imageSorted = imageSort({
+        pixelChoice,
+        sortDir,
+        sortMode,
+        threshold,
+      });
+      setSortedImage(imageSorted);
+    }
+  }
+
+  const dlImage = () => {
+    if (imageDL) {
+      const dl = document.createElement('a');
+      dl.href = imageDL;
+      dl.download = 'pixelsort.png';
+      document.body.appendChild(dl);
+      dl.click();
+    } 
+  };
+
   const handleButton = (event: MouseEvent<HTMLButtonElement>) => {
     const pressedButton = event.currentTarget.name;
     switch (pressedButton) {
       case 'Sort': {
-        let imageSorted, pixelData;
-        if (pixelChoice) {
-          // if (sortMode.mode === 'rgb') {
-          //   pixelData = pixelChoice.rgb;
-          // } else {
-          //   pixelData = pixelChoice.hsl;
-          // }
-          imageSorted = imageSort({
-            pixelChoice,
-            sortDir,
-            sortMode,
-            threshold,
-          });
-          setSortedImage(imageSorted);
-        }
+        sortImage();
         break;
       }
       case 'Save':
-        console.log('save');
+        dlImage();
         break;
       case 'Reset':
         setSortedImage(undefined);
@@ -97,7 +106,7 @@ const Controls = ({ pixelChoice, setSortedImage }: ControlsProps) => {
   const handleThreshold = (thresh: SortThreshold) => {
     // console.log(thresh);
     setThreshold(thresh);
-  }
+  };
 
   return (
     <div className="controls column">
