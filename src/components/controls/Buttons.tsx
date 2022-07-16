@@ -10,10 +10,21 @@ const Buttons = ({ handleButton }: ButtonsProps) => {
 
   return (
     <div className="btns">
-      <Btn name="Sort" handleButton={handleButton} />
-      <Btn name="Save" handleButton={handleButton} />
-      <Btn name="Reset" handleButton={handleButton} />
-      <Btn name="Refresh" handleButton={handleButton} />
+      <Btn
+        name="Sort"
+        label="Apply sort parameters"
+        handleButton={handleButton}
+      />
+
+      <Btn name="Save" label="Save image" handleButton={handleButton} />
+
+      <Btn
+        name="Reset"
+        label="Reset unsorted image"
+        handleButton={handleButton}
+      />
+
+      <Btn name="Refresh" label="Load new image" handleButton={handleButton} />
     </div>
   );
 };
