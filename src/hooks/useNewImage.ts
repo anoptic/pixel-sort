@@ -11,7 +11,7 @@ const fetcher = async (url: string) => {
   const res = await fetch(url, {
     mode: 'cors',
     headers: {
-      Authorization: `Client-ID ${import.meta.env.VITE_ACCESS_KEY}`,
+      'Authorization': `Client-ID ${import.meta.env.VITE_ACCESS_KEY}`,
       'Accept-Version': 'v1',
     },
   });
@@ -24,10 +24,10 @@ const useNewImage = () => {
   // console.log(loc);
   // const [newImageCache, setNewImageCache] = useState<NewImageObject | null>(null);
   const { data, error } = useSWR(
-    `https://api.unsplash.com/photos/random/?client_id=${
-      import.meta.env.VITE_ACCESS_KEY
-    }`,
-    // 'https://api.unsplash.com/photos/random/',
+    // `https://api.unsplash.com/photos/random/?client_id=${
+    //   import.meta.env.VITE_ACCESS_KEY
+    // }`,
+    'https://api.unsplash.com/photos/random/',
     fetcher,
     {
       revalidateIfStale: false,
@@ -41,8 +41,8 @@ const useNewImage = () => {
     imageCreditName: '',
   }; 
   
-  if (error) console.log(error);
-  if (!data) console.log('Thinking about it...');
+  // if (error) console.log(error);
+  // if (!data) console.log('Thinking about it...');
   if (data) {
     // console.log('!!!DATA!!!');
     const randomImage = data.urls.raw + '&w=720&h=480&fit=crop&crop=entropy';

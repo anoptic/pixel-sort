@@ -27,7 +27,7 @@ const Sorter = () => {
   const [pixelChoice, setPixelChoice] = useState<PixelChoice | null>(null);
   const [imageDL, setImageDL] = useState<string | null>(null);
   const [newImageFlag, setNewImageFlag] = useState(false);
-  const { newImageCache, isLoading, isError } = useNewImage();
+  // const { newImageCache, isLoading, isError } = useNewImage();
   // const [newImageObject, setNewImageObject] = useState<NewImageObject | null>(null);
 
   // newImageFlag = starts false, changed to true only with Refresh btn
@@ -51,7 +51,7 @@ const Sorter = () => {
   //   }
   // }, [newImageFlag]);
 
-  if (isLoading) return <Loader />;
+  // if (isLoading) return <Loader />;
   // console.log(newImageCache);
 
   return (

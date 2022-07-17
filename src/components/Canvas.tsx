@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import useNewImage, { NewImageObject } from '../hooks/useNewImage';
 
 interface ImageProps {
@@ -14,6 +14,7 @@ const initImage = {
   mobile: '/assets/inkblot.jpg',
 };
 const displayImage = new window.Image();
+displayImage.crossOrigin = 'anonymous';
 let newImageObject: NewImageObject;
 
 const Canvas = ({
@@ -26,8 +27,9 @@ const Canvas = ({
   // console.log('canvas prop', sortedImage);
   const canvasRef = useRef<HTMLCanvasElement>({} as HTMLCanvasElement);
   // const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
+  // const [newImageObject, setNewImageObject] = useState<NewImageObject | null>(null);
   const { newImageCache } = useNewImage();
-  
+
   if (newImageFlag) newImageObject = newImageCache;
 
   useEffect(() => {
@@ -45,7 +47,7 @@ const Canvas = ({
         setImageDL(imgCanvas.toDataURL());
       } else {
         if (newImageObject) {
-          console.log(newImageObject);
+          // console.log(newImageObject);
           displayImage.src = newImageObject.newImage;
           setNewImageFlag(false);
         } else {
@@ -70,7 +72,32 @@ const Canvas = ({
         width={720}
         height={480}
       ></canvas>
-      <figcaption>Colorful heads</figcaption>
+      {newImageObject && (
+        <figcaption>
+          Photo by{' '}
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href={
+              newImageObject.imageCreditLink +
+              '?utm_source=your_app_name&utm_medium=referral'
+            }
+          >
+            {newImageObject.imageCreditName}
+          </a>{' '}
+          on{' '}
+          <a
+            target="_blank"
+            rel="noreferrer"
+            href="https://unsplash.com/?utm_source=your_app_name&utm_medium=referral"
+          >
+            Unsplash
+          </a>
+        </figcaption>
+      )}
+      {!newImageObject && (
+        <figcaption>Colorful heads</figcaption>
+      )}
     </figure>
   );
 };
