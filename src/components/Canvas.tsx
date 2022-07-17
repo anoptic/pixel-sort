@@ -1,9 +1,12 @@
 import { useEffect, useRef } from 'react';
+import useNewImage, { NewImageObject } from '../hooks/useNewImage';
 
 interface ImageProps {
   sortedImage?: number[];
   setImageData: (imageData: Uint8ClampedArray) => void;
   setImageDL: (imageDL: string | null) => void;
+  newImageFlag: boolean;
+  setNewImageFlag: (newImageFlag: boolean) => void;
 }
 
 const initImage = {
@@ -11,11 +14,21 @@ const initImage = {
   mobile: '/assets/inkblot.jpg',
 };
 const displayImage = new window.Image();
+let newImageObject: NewImageObject;
 
-const Canvas = ({ sortedImage, setImageData, setImageDL }: ImageProps) => {
+const Canvas = ({
+  sortedImage,
+  setImageData,
+  setImageDL,
+  newImageFlag,
+  setNewImageFlag,
+}: ImageProps) => {
   // console.log('canvas prop', sortedImage);
   const canvasRef = useRef<HTMLCanvasElement>({} as HTMLCanvasElement);
   // const [context, setContext] = useState<CanvasRenderingContext2D | null>(null);
+  const { newImageCache } = useNewImage();
+  
+  if (newImageFlag) newImageObject = newImageCache;
 
   useEffect(() => {
     const imgCanvas = canvasRef.current;
@@ -29,17 +42,23 @@ const Canvas = ({ sortedImage, setImageData, setImageDL }: ImageProps) => {
           sortedCanvas.data[i] = sortedImage[i];
         });
         imgContext.putImageData(sortedCanvas, 0, 0);
+        setImageDL(imgCanvas.toDataURL());
       } else {
-        displayImage.src = initImage.desktop;
+        if (newImageObject) {
+          console.log(newImageObject);
+          displayImage.src = newImageObject.newImage;
+          setNewImageFlag(false);
+        } else {
+          displayImage.src = initImage.desktop;
+        }
         displayImage.onload = () => {
           imgContext.drawImage(displayImage, 0, 0);
           const imageData = imgContext.getImageData(0, 0, 720, 480);
           setImageData(imageData.data);
         };
       }
-      setImageDL(imgCanvas.toDataURL());
     }
-  }, [sortedImage]);
+  }, [sortedImage, newImageFlag, newImageObject]);
 
   return (
     <figure>

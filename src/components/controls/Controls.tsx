@@ -9,6 +9,7 @@ interface ControlsProps {
   pixelChoice: PixelChoice | null;
   setSortedImage: (sortedImage: number[] | undefined) => void;
   imageDL: string | null;
+  setNewImageFlag: (newImageFlag: boolean) => void;
 }
 export type SortDir = 'horz' | 'vert' | 'hove';
 export type ModeValue = 'r' | 'g' | 'b' | 'h' | 's' | 'l';
@@ -21,7 +22,12 @@ export interface SortThreshold {
   value: number;
 }
 
-const Controls = ({ pixelChoice, setSortedImage, imageDL }: ControlsProps) => {
+const Controls = ({
+  pixelChoice,
+  setSortedImage,
+  imageDL,
+  setNewImageFlag,
+}: ControlsProps) => {
   // console.log('pixelData', pixelData);
   const [sortDir, setSortDir] = useState<SortDir>('vert');
   const [modeValue, setModeValue] = useState<ModeValue>('r');
@@ -44,7 +50,7 @@ const Controls = ({ pixelChoice, setSortedImage, imageDL }: ControlsProps) => {
       });
       setSortedImage(imageSorted);
     }
-  }
+  };
 
   const dlImage = () => {
     if (imageDL) {
@@ -53,7 +59,7 @@ const Controls = ({ pixelChoice, setSortedImage, imageDL }: ControlsProps) => {
       dl.download = 'pixelsort.png';
       document.body.appendChild(dl);
       dl.click();
-    } 
+    }
   };
 
   const handleButton = (event: MouseEvent<HTMLButtonElement>) => {
@@ -70,7 +76,7 @@ const Controls = ({ pixelChoice, setSortedImage, imageDL }: ControlsProps) => {
         setSortedImage(undefined);
         break;
       case 'Refresh':
-        console.log('refresh');
+        setNewImageFlag(true);
         break;
     }
   };
