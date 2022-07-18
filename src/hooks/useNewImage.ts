@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import useSWR from 'swr';
 
 export interface NewImageObject {
@@ -20,19 +19,21 @@ const fetcher = async (url: string) => {
 
 // const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-const useNewImage = () => {
-  // console.log(loc);
-  // const [newImageCache, setNewImageCache] = useState<NewImageObject | null>(null);
+const useNewImage = (url: string) => {
+  console.log('useNewImage');
   const { data, error } = useSWR(
     // `https://api.unsplash.com/photos/random/?client_id=${
     //   import.meta.env.VITE_ACCESS_KEY
     // }`,
-    'https://api.unsplash.com/photos/random/',
+    // 'https://api.unsplash.com/photos/random/',
+    url,
     fetcher,
     {
       revalidateIfStale: false,
       revalidateOnFocus: false,
       revalidateOnReconnect: false,
+      // revalidateOnMount must be true or it doesn't work
+      // apparently, it means validate on mount
     }
   );
   const newImg: NewImageObject = {

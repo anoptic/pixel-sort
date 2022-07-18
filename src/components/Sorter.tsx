@@ -20,6 +20,7 @@ export interface PixelChoice {
 // const loc = '3';
 
 const Sorter = () => {
+  console.log('Sorter');
   const [imageData, setImageData] = useState<Uint8ClampedArray | null>(null);
   const [sortedImage, setSortedImage] = useState<number[] | undefined>(
     undefined
@@ -62,6 +63,7 @@ const Sorter = () => {
         setImageDL={setImageDL}
         newImageFlag={newImageFlag}
         setNewImageFlag={setNewImageFlag}
+        setSortedImage={setSortedImage}
       />
 
       <Controls
