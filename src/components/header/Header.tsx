@@ -10,7 +10,7 @@ const Header = () => {
       <Text size="xl" weight={400} mb="md">
         Pixel Sorter
       </Text>
-      <div>
+      <div className="icons">
         <ModeSwitch />
         <LinkIcon />
       </div>

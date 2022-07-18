@@ -49,6 +49,10 @@ body {
   justify-content: space-between;
 }
 
+.icons {
+  display: flex;
+}
+
 figcaption {
   font-family: inherit;
   padding: 0 3rem;
