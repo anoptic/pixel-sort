@@ -16,10 +16,12 @@ const initImage = {
   mobile: '/assets/inkblot.jpg',
 };
 const url = 'https://api.unsplash.com/photos/random/';
+
 const displayImage = new window.Image();
 const cacheImage = new window.Image();
 displayImage.crossOrigin = 'anonymous';
 cacheImage.crossOrigin = 'anonymous';
+
 let newImageObject: ImageData | null;
 
 const Canvas = ({
@@ -35,9 +37,15 @@ const Canvas = ({
   const cacheRef = useRef<HTMLCanvasElement>({} as HTMLCanvasElement);
   const cacheData = useRef<ImageData | null>(null);
   const { newImageCache } = useNewImage(url);
-  const { mutate } = useSWRConfig();
+  // const { mutate } = useSWRConfig();
 
-  if (newImageFlag) newImageObject = cacheData.current;
+  if (newImageFlag) {
+    newImageObject = cacheData.current;
+    setNewImageFlag(false);
+    // mutate(url);
+  }
+
+  // const makeImageData = () => {}
 
   useEffect(() => {
     const imageCanvas = imageRef.current;
@@ -54,22 +62,25 @@ const Canvas = ({
         setImageDL(imageCanvas.toDataURL());
         // setSortedImage(undefined);
       } else {
+        let imageData;
         if (newImageObject) {
           imageContext.putImageData(newImageObject, 0, 0);
+          imageData = imageContext.getImageData(0, 0, 720, 480);
+          setImageData(imageData.data);
           setNewImageFlag(false);
-          mutate(url);
+          // mutate(url);
         } else {
           displayImage.src = initImage.desktop;
           displayImage.onload = () => {
             imageContext.drawImage(displayImage, 0, 0);
+            imageData = imageContext.getImageData(0, 0, 720, 480);
+            setImageData(imageData.data);
           };
         }
-        const imageData = imageContext.getImageData(0, 0, 720, 480);
-        setImageData(imageData.data);
       }
     }
 
-    if (cacheContext && newImageCache) {
+    if (cacheContext) {
       cacheImage.src = newImageCache.newImage;
       cacheImage.onload = () => {
         cacheContext.drawImage(cacheImage, 0, 0);
@@ -77,7 +88,7 @@ const Canvas = ({
         // console.log(cacheData.current);
       };
     }
-  }, [sortedImage, newImageObject, newImageCache]);
+  }, [sortedImage, newImageObject]);
 
   return (
     <>
