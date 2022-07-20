@@ -59,6 +59,7 @@ const Controls = ({
       dl.download = 'pixelsort.png';
       document.body.appendChild(dl);
       dl.click();
+      document.body.removeChild(dl);
     }
   };
 

@@ -16,11 +16,11 @@ const Buttons = ({ handleButton }: ButtonsProps) => {
         handleButton={handleButton}
       />
 
-      <Btn name="Save" label="Download image" handleButton={handleButton} />
+      <Btn name="Save" label="Download sorted image" handleButton={handleButton} />
 
       <Btn
         name="Reset"
-        label="Reset unsorted image"
+        label="Reset to unsorted image"
         handleButton={handleButton}
       />
 

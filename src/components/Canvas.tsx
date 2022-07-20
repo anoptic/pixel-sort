@@ -15,7 +15,7 @@ const initImage = {
   desktop: '/assets/heads.jpg',
   mobile: '/assets/inkblot.jpg',
 };
-const url = 'https://api.unsplash.com/photos/random/';
+// const url = 'https://api.unsplash.com/photos/random/';
 
 const displayImage = new window.Image();
 const cacheImage = new window.Image();
@@ -32,18 +32,19 @@ const Canvas = ({
   setNewImageFlag,
   setSortedImage,
 }: ImageProps) => {
-  console.log('Canvas');
+  // console.log('Canvas');
   const imageRef = useRef<HTMLCanvasElement>({} as HTMLCanvasElement);
   const cacheRef = useRef<HTMLCanvasElement>({} as HTMLCanvasElement);
   const cacheData = useRef<ImageData | null>(null);
-  const { newImageCache } = useNewImage(url);
+  // const [newImageObject, setNewImageObject] = useState<ImageData | null>(null);
+  // const { newImageCache } = useNewImage(url);
+  const newImageCache = useNewImage();
+  // console.log(stuff);
   // const { mutate } = useSWRConfig();
-
-  if (newImageFlag) {
-    newImageObject = cacheData.current;
-    setNewImageFlag(false);
-    // mutate(url);
-  }
+  // if (cacheData) console.log('func body', cacheData.current);
+  // if (newImageFlag) {
+  //   newImageObject = cacheData.current;
+  // }
 
   // const makeImageData = () => {}
 
@@ -53,6 +54,7 @@ const Canvas = ({
     const cacheContext = cacheRef.current.getContext('2d');
 
     if (imageContext) {
+      let imageData;
       if (sortedImage) {
         const sortedCanvas = imageContext.createImageData(720, 480);
         sortedCanvas.data.forEach((_, i) => {
@@ -61,34 +63,32 @@ const Canvas = ({
         imageContext.putImageData(sortedCanvas, 0, 0);
         setImageDL(imageCanvas.toDataURL());
         // setSortedImage(undefined);
+      } else if (newImageObject) {
+        imageContext.putImageData(newImageObject, 0, 0);
+        imageData = imageContext.getImageData(0, 0, 720, 480);
+        setImageData(imageData.data);
+        setNewImageFlag(false);
+        // mutate(url);
       } else {
-        let imageData;
-        if (newImageObject) {
-          imageContext.putImageData(newImageObject, 0, 0);
+        displayImage.src = initImage.desktop;
+        displayImage.onload = () => {
+          imageContext.drawImage(displayImage, 0, 0);
           imageData = imageContext.getImageData(0, 0, 720, 480);
           setImageData(imageData.data);
-          setNewImageFlag(false);
-          // mutate(url);
-        } else {
-          displayImage.src = initImage.desktop;
-          displayImage.onload = () => {
-            imageContext.drawImage(displayImage, 0, 0);
-            imageData = imageContext.getImageData(0, 0, 720, 480);
-            setImageData(imageData.data);
-          };
-        }
+        };
       }
     }
 
-    if (cacheContext) {
+    if (cacheContext && newImageCache) {
+      console.log('x', newImageCache);
       cacheImage.src = newImageCache.newImage;
       cacheImage.onload = () => {
         cacheContext.drawImage(cacheImage, 0, 0);
         cacheData.current = cacheContext.getImageData(0, 0, 720, 480);
-        // console.log(cacheData.current);
+        console.log('y', cacheData.current);
       };
     }
-  }, [sortedImage, newImageObject]);
+  }, [sortedImage]);
 
   return (
     <>

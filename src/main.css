@@ -3,6 +3,7 @@ body {
   padding: 1rem;
   display: flex;
   justify-content: center;
+  /* background-color: #222; */
 }
 
 #cacheCanvas {
@@ -77,4 +78,8 @@ figcaption {
   z-index: -1;
   height: 4px;
   background-color: #e9ecef;
+}
+
+.select-item {
+  line-height: 0.1rem;
 }

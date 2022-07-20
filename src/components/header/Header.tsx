@@ -1,4 +1,4 @@
-import { Text } from '@mantine/core';
+import { Divider, Text } from '@mantine/core';
 import LinkIcon from './LinkIcon';
 import ModeSwitch from './ModeSwitch';
 
@@ -12,6 +12,7 @@ const Header = () => {
       </Text>
       <div className="icons">
         <ModeSwitch />
+        <Divider sx={{height: '24px', margin: '0 0.5em'}} size='md' orientation='vertical' />
         <LinkIcon />
       </div>
     </header>
