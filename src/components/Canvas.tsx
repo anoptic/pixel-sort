@@ -1,3 +1,4 @@
+import { useQueryClient } from '@tanstack/react-query';
 import { useState, useEffect, useRef, MutableRefObject } from 'react';
 import { useSWRConfig } from 'swr';
 import useNewImage, { NewImageObject } from '../hooks/useNewImage';
@@ -8,7 +9,7 @@ interface ImageProps {
   setImageDL: (imageDL: string | null) => void;
   newImageFlag: boolean;
   setNewImageFlag: (newImageFlag: boolean) => void;
-  setSortedImage: (sortedImage: number[] | undefined) => void;
+  newImageCache: NewImageObject | undefined;
 }
 
 const initImage = {
@@ -30,28 +31,28 @@ const Canvas = ({
   setImageDL,
   newImageFlag,
   setNewImageFlag,
-  setSortedImage,
+  newImageCache,
 }: ImageProps) => {
   // console.log('Canvas');
   const imageRef = useRef<HTMLCanvasElement>({} as HTMLCanvasElement);
   const cacheRef = useRef<HTMLCanvasElement>({} as HTMLCanvasElement);
   const cacheData = useRef<ImageData | null>(null);
+  const queryClient = useQueryClient();
   // const [newImageObject, setNewImageObject] = useState<ImageData | null>(null);
   // const { newImageCache } = useNewImage(url);
-  const newImageCache = useNewImage();
-  // console.log(stuff);
+  // const newImageCache = useNewImage();
+  // console.log(newImageCache);
   // const { mutate } = useSWRConfig();
   // if (cacheData) console.log('func body', cacheData.current);
-  // if (newImageFlag) {
-  //   newImageObject = cacheData.current;
-  // }
+  if (newImageFlag) {
+    newImageObject = cacheData.current;
+  }
 
   // const makeImageData = () => {}
 
   useEffect(() => {
     const imageCanvas = imageRef.current;
     const imageContext = imageCanvas.getContext('2d');
-    const cacheContext = cacheRef.current.getContext('2d');
 
     if (imageContext) {
       let imageData;
@@ -67,8 +68,10 @@ const Canvas = ({
         imageContext.putImageData(newImageObject, 0, 0);
         imageData = imageContext.getImageData(0, 0, 720, 480);
         setImageData(imageData.data);
-        setNewImageFlag(false);
-        // mutate(url);
+        if (newImageFlag) {
+          setNewImageFlag(false);
+          queryClient.invalidateQueries(['random']);
+        }
       } else {
         displayImage.src = initImage.desktop;
         displayImage.onload = () => {
@@ -78,24 +81,30 @@ const Canvas = ({
         };
       }
     }
+  }, [sortedImage, newImageObject]);
 
-    if (cacheContext && newImageCache) {
-      console.log('x', newImageCache);
-      cacheImage.src = newImageCache.newImage;
-      cacheImage.onload = () => {
-        cacheContext.drawImage(cacheImage, 0, 0);
-        cacheData.current = cacheContext.getImageData(0, 0, 720, 480);
-        console.log('y', cacheData.current);
-      };
+  useEffect(() => {
+    const cacheContext = cacheRef.current.getContext('2d');
+
+    if (cacheContext) {
+      if (newImageCache) {
+        // console.log('x', newImageCache);
+        cacheImage.src = newImageCache.newImage;
+        cacheImage.onload = () => {
+          cacheContext.drawImage(cacheImage, 0, 0);
+          cacheData.current = cacheContext.getImageData(0, 0, 720, 480);
+          // console.log('y', cacheData.current);
+        };
+      }
     }
-  }, [sortedImage]);
+  }, [newImageCache]);
 
   return (
     <>
       <canvas id="cacheCanvas" ref={cacheRef} width={720} height={480}></canvas>
       <figure>
-        <div className="topRule"></div>
-        <div className="botRule"></div>
+        {/* <div className="topRule"></div> */}
+        {/* <div className="botRule"></div> */}
         <canvas
           id="imageCanvas"
           ref={imageRef}

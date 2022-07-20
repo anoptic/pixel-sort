@@ -1,9 +1,6 @@
 newImage
-  ~~ should be fetched in bg and cached ~~
-  ~~  - it is, but it's only the link, need another canvas to getImageData ~~
-  ~~ refresh should load cached newImage and revalidate/mutate (refetch) in bg ~~
-  ~~seems to be rerendering too many times - error from unsplash~~
-  loads from refresh only once - need to switch to tanstack and implement mutate
+  works finally, but also fetching on reset, because reset sets sortedImage to undefined, which causes newImageObject to render, which imvalidates the query
+  refactor to use initialData in useNewImage hook for initImage
 
 icon btns in header
   github - will link to this repo obv

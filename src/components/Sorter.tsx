@@ -28,6 +28,7 @@ const Sorter = () => {
   const [pixelChoice, setPixelChoice] = useState<PixelChoice | null>(null);
   const [imageDL, setImageDL] = useState<string | null>(null);
   const [newImageFlag, setNewImageFlag] = useState(false);
+  const newImageCache = useNewImage();
   // const { newImageCache, isLoading, isError } = useNewImage();
   // const [newImageObject, setNewImageObject] = useState<NewImageObject | null>(null);
 
@@ -63,7 +64,7 @@ const Sorter = () => {
         setImageDL={setImageDL}
         newImageFlag={newImageFlag}
         setNewImageFlag={setNewImageFlag}
-        setSortedImage={setSortedImage}
+        newImageCache={newImageCache}
       />
 
       <Controls
