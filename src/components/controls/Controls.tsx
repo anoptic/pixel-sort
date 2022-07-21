@@ -10,6 +10,7 @@ interface ControlsProps {
   setSortedImage: (sortedImage: number[] | undefined) => void;
   imageDL: string | null;
   setNewImageFlag: (newImageFlag: boolean) => void;
+  setInit: (init: boolean) => void;
 }
 export type SortDir = 'horz' | 'vert' | 'hove';
 export type ModeValue = 'r' | 'g' | 'b' | 'h' | 's' | 'l';
@@ -27,6 +28,7 @@ const Controls = ({
   setSortedImage,
   imageDL,
   setNewImageFlag,
+  setInit,
 }: ControlsProps) => {
   // console.log('pixelData', pixelData);
   const [sortDir, setSortDir] = useState<SortDir>('vert');
@@ -77,7 +79,9 @@ const Controls = ({
         setSortedImage(undefined);
         break;
       case 'Refresh':
+        setSortedImage(undefined);
         setNewImageFlag(true);
+        setInit(false);
         break;
     }
   };

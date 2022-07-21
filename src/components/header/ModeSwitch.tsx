@@ -1,7 +1,7 @@
-import { useState } from 'react';
+import { useMantineColorScheme } from '@mantine/core';
 import ModeIcon from './ModeIcon';
 
-const light = (
+const sun = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="icon icon-tabler icon-tabler-sun"
@@ -19,7 +19,7 @@ const light = (
     <path d="M3 12h1m8 -9v1m8 8h1m-9 8v1m-6.4 -15.4l.7 .7m12.1 -.7l-.7 .7m0 11.4l.7 .7m-12.1 -.7l-.7 .7" />
   </svg>
 );
-const dark = (
+const moon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="icon icon-tabler icon-tabler-moon"
@@ -38,16 +38,16 @@ const dark = (
 );
 
 const ModeSwitch = () => {
-  const [darkMode, setDarkMode] = useState(false)
+  const {colorScheme, toggleColorScheme} = useMantineColorScheme();
+  const dark = colorScheme === 'dark'
   
   return (
     <>
       <ModeIcon
-        label={darkMode ? 'Dark mode' : 'Light mode'}
-        darkMode={darkMode}
-        setDarkMode={setDarkMode}
+        label={dark ? 'Light mode' : 'Dark mode'}
+        toggleColorScheme={toggleColorScheme}
       >
-        {darkMode ? dark : light}
+        {dark ? sun : moon}
       </ModeIcon>
     </>
   );

@@ -38,7 +38,7 @@ const useNewImage = () => {
 
   if (data) {
     // console.log('!!!DATA!!!');
-    const randomImage = data.urls.raw + '&w=720&h=480&fit=crop&crop=entropy';
+    const randomImage = data.urls.raw + '&w=720&h=480&fit=crop&crop=faces,center';
     const imageCreditLink = data.user.links.html;
     const imageCreditName = data.user.name;
     newImg.newImage = randomImage;

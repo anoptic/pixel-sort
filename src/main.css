@@ -1,10 +1,9 @@
-body {
+/* body {
   font-family: 'Lato', sans-serif;
   padding: 1rem;
   display: flex;
   justify-content: center;
-  /* background-color: #222; */
-}
+} */
 
 #cacheCanvas {
   display: none;

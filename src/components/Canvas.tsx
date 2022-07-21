@@ -1,7 +1,7 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useState, useEffect, useRef, MutableRefObject } from 'react';
-import { useSWRConfig } from 'swr';
 import useNewImage, { NewImageObject } from '../hooks/useNewImage';
+import Caption from './Caption';
 
 interface ImageProps {
   sortedImage?: number[];
@@ -10,13 +10,13 @@ interface ImageProps {
   newImageFlag: boolean;
   setNewImageFlag: (newImageFlag: boolean) => void;
   newImageCache: NewImageObject | undefined;
+  init: boolean;
 }
 
 const initImage = {
   desktop: '/assets/heads.jpg',
   mobile: '/assets/inkblot.jpg',
 };
-// const url = 'https://api.unsplash.com/photos/random/';
 
 const displayImage = new window.Image();
 const cacheImage = new window.Image();
@@ -24,6 +24,7 @@ displayImage.crossOrigin = 'anonymous';
 cacheImage.crossOrigin = 'anonymous';
 
 let newImageObject: ImageData | null;
+let captionName: string | undefined, captionLink: string | undefined;
 
 const Canvas = ({
   sortedImage,
@@ -32,23 +33,19 @@ const Canvas = ({
   newImageFlag,
   setNewImageFlag,
   newImageCache,
+  init,
 }: ImageProps) => {
   // console.log('Canvas');
   const imageRef = useRef<HTMLCanvasElement>({} as HTMLCanvasElement);
   const cacheRef = useRef<HTMLCanvasElement>({} as HTMLCanvasElement);
   const cacheData = useRef<ImageData | null>(null);
   const queryClient = useQueryClient();
-  // const [newImageObject, setNewImageObject] = useState<ImageData | null>(null);
-  // const { newImageCache } = useNewImage(url);
-  // const newImageCache = useNewImage();
-  // console.log(newImageCache);
-  // const { mutate } = useSWRConfig();
-  // if (cacheData) console.log('func body', cacheData.current);
+
   if (newImageFlag) {
     newImageObject = cacheData.current;
+    captionName = newImageCache?.imageCreditName;
+    captionLink = newImageCache?.imageCreditLink;
   }
-
-  // const makeImageData = () => {}
 
   useEffect(() => {
     const imageCanvas = imageRef.current;
@@ -63,7 +60,6 @@ const Canvas = ({
         });
         imageContext.putImageData(sortedCanvas, 0, 0);
         setImageDL(imageCanvas.toDataURL());
-        // setSortedImage(undefined);
       } else if (newImageObject) {
         imageContext.putImageData(newImageObject, 0, 0);
         imageData = imageContext.getImageData(0, 0, 720, 480);
@@ -101,7 +97,12 @@ const Canvas = ({
 
   return (
     <>
-      <canvas id="cacheCanvas" ref={cacheRef} width={720} height={480}></canvas>
+      <canvas 
+        id="cacheCanvas" 
+        ref={cacheRef} 
+        width={720} 
+        height={480}
+      ></canvas>
       <figure>
         {/* <div className="topRule"></div> */}
         {/* <div className="botRule"></div> */}
@@ -111,30 +112,11 @@ const Canvas = ({
           width={720}
           height={480}
         ></canvas>
-        {/* {newImageObject && (
-          <figcaption>
-            Photo by{' '}
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href={
-                newImageObject.imageCreditLink +
-                '?utm_source=your_app_name&utm_medium=referral'
-              }
-            >
-              {newImageObject.imageCreditName}
-            </a>{' '}
-            on{' '}
-            <a
-              target="_blank"
-              rel="noreferrer"
-              href="https://unsplash.com/?utm_source=your_app_name&utm_medium=referral"
-            >
-              Unsplash
-            </a>
-          </figcaption>
-        )} */}
-        <figcaption>image caption with credit</figcaption>
+        <Caption
+          init={init}
+          captionName={captionName}
+          captionLink={captionLink}
+        />
       </figure>
     </>
   );

@@ -4,20 +4,11 @@ import Canvas from './Canvas';
 import imagePrep from '../funcs/imagePrep';
 import useNewImage, { NewImageObject } from '../hooks/useNewImage';
 import { Loader } from '@mantine/core';
-// import useSWR from 'swr';
 
 export interface PixelChoice {
   rgb: number[][];
   hsl: number[][];
 }
-// export interface NewImageData {
-//   newImg: string
-//   isLoading: boolean
-//   isError: string
-// }
-
-// const auth = import.meta.env.VITE_ACCESS_KEY;
-// const loc = '3';
 
 const Sorter = () => {
   // console.log('Sorter');
@@ -28,16 +19,9 @@ const Sorter = () => {
   const [pixelChoice, setPixelChoice] = useState<PixelChoice | null>(null);
   const [imageDL, setImageDL] = useState<string | null>(null);
   const [newImageFlag, setNewImageFlag] = useState(false);
+  const [init, setInit] = useState(true);
   const newImageCache = useNewImage();
-  // const { newImageCache, isLoading, isError } = useNewImage();
-  // const [newImageObject, setNewImageObject] = useState<NewImageObject | null>(null);
-
-  // newImageFlag = starts false, changed to true only with Refresh btn
-  // newImageCache<NewImageObject> = result from fetch hook, runs on init
-  // newImageObject<NewImageObject> = empty until Flag is changed
-  // onLoad: Flag false, Cache populated, Object empty
-  // onClick Refresh: Flag true, Cache copied to Object, Object passed to Canvas, Cache revalidated
-
+  
   useEffect(() => {
     if (imageData) {
       // console.log('data', imageData);
@@ -45,16 +29,6 @@ const Sorter = () => {
       setPixelChoice({ rgb: imagePixelsRGB, hsl: imagePixelsHSL });
     }
   }, [imageData]);
-
-  // useEffect(() => {
-  //   if (newImageFlag) {
-  //     console.log('cache', newImageFlag, newImageCache);
-  //     // setNewImageObject(newImageCache);
-  //   }
-  // }, [newImageFlag]);
-
-  // if (isLoading) return <Loader />;
-  // console.log(newImageCache);
 
   return (
     <main>
@@ -65,6 +39,7 @@ const Sorter = () => {
         newImageFlag={newImageFlag}
         setNewImageFlag={setNewImageFlag}
         newImageCache={newImageCache}
+        init={init}
       />
 
       <Controls
@@ -72,6 +47,7 @@ const Sorter = () => {
         setSortedImage={setSortedImage}
         imageDL={imageDL}
         setNewImageFlag={setNewImageFlag}
+        setInit={setInit}
       />
     </main>
   );
