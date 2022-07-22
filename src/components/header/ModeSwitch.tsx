@@ -1,12 +1,9 @@
-import { useMantineColorScheme } from '@mantine/core';
-import ModeIcon from './ModeIcon';
-
 const sun = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="icon icon-tabler icon-tabler-sun"
-    width="44"
-    height="44"
+    width="32"
+    height="32"
     viewBox="0 0 24 24"
     strokeWidth="1.5"
     stroke="#2c3e50"
@@ -23,8 +20,8 @@ const moon = (
   <svg
     xmlns="http://www.w3.org/2000/svg"
     className="icon icon-tabler icon-tabler-moon"
-    width="44"
-    height="44"
+    width="32"
+    height="32"
     viewBox="0 0 24 24"
     strokeWidth="1.5"
     stroke="#2c3e50"
@@ -38,17 +35,12 @@ const moon = (
 );
 
 const ModeSwitch = () => {
-  const {colorScheme, toggleColorScheme} = useMantineColorScheme();
-  const dark = colorScheme === 'dark'
+  // const {colorScheme, toggleColorScheme} = useMantineColorScheme();
+  const dark = true
   
   return (
     <>
-      <ModeIcon
-        label={dark ? 'Light mode' : 'Dark mode'}
-        toggleColorScheme={toggleColorScheme}
-      >
-        {dark ? sun : moon}
-      </ModeIcon>
+      {dark ? sun : moon}
     </>
   );
 };

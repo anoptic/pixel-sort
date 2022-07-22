@@ -1,4 +1,3 @@
-import { Radio, RadioGroup, Select } from '@mantine/core';
 import { ChangeEvent, ChangeEventHandler, PointerEvent, useState } from 'react';
 import { ModeValue, SortDir } from './Controls';
 
@@ -15,49 +14,41 @@ const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
   return (
     <div className="sort-controls">
       <div className="sortDirRadio sort">
-        <RadioGroup
-          label="Sort Direction"
-          orientation="vertical"
-          spacing={8}
-          defaultValue="vert"
-          onChange={handleRadio}
-        >
-          <Radio value="horz" label="Horizontal" />
-          <Radio value="vert" label="Vertical" />
-          <Radio value="hove" label="Horizontal / Vertical" />
-        </RadioGroup>
+        <div id="radioSort">
+          <label htmlFor="sort">Sort Direction</label>
+          <div>
+            <input type="radio" name="sort" value="horz" id="horz" />
+            <label htmlFor="horz">Horizontal</label>
+          </div>
+          <div>
+            <input
+              type="radio"
+              name="sort"
+              value="vert"
+              id="vert"
+              defaultChecked
+            />
+            <label htmlFor="vert">Vertical</label>
+          </div>
+          <div>
+            <input type="radio" name="sort" value="hove" id="hove" />
+            <label htmlFor="hove">Horizontal / Vertical</label>
+          </div>
+        </div>
       </div>
       <div className="sortModeSelect sort">
-        <Select
-          className="select"
-          label="Sort Mode"
-          dropdownPosition='top'
-          maxDropdownHeight={350}
-          data={[
-            { label: 'Red', value: 'r', group: 'RGB' },
-            { label: 'Green', value: 'g', group: 'RGB' },
-            { label: 'Blue', value: 'b', group: 'RGB' },
-            { label: 'Hue', value: 'h', group: 'HSL' },
-            { label: 'Saturation', value: 's', group: 'HSL' },
-            { label: 'Lightness', value: 'l', group: 'HSL' },
-          ]}
-          value={modeValue}
-          onChange={handleSelect}
-        />
+        <div>
+          <label htmlFor="mode">Sort Mode</label>
+          <select name="mode" id="mode">
+            <option value="r">Red</option>
+            <option value="g">Green</option>
+            <option value="b">Blue</option>
+            <option value="h">Hue</option>
+            <option value="s">Saturation</option>
+            <option value="l">Lightness</option>
+          </select>
+        </div>
       </div>
-
-      {/* <div id="radioSort">
-          <input type="radio" name="sort" value="horz" id="horz" onChange={handleRadio} />
-          <label htmlFor="horz">Horizontal</label>
-        </div>
-        <div>
-          <input type="radio" name="sort" value="vert" id="vert" onChange={handleRadio} defaultChecked />
-          <label htmlFor="vert">Vertical</label>
-        </div>
-        <div>
-          <input type="radio" name="sort" value="hove" id="hove" onChange={handleRadio} />
-          <label htmlFor="hove">Horizontal / Vertical</label>
-        </div> */}
     </div>
   );
 };

@@ -1,4 +1,3 @@
-import { Button, Tooltip } from '@mantine/core';
 import { MouseEvent } from 'react';
 // import { ButtonsProps } from "./Buttons";
 
@@ -13,16 +12,14 @@ const Btn = ({ name, label, handleButton }: BtnProps) => {
 
   return (
     <>
-      <Tooltip label={label} withArrow>
-        <Button
-          name={name}
-          className="ctrl-btn"
-          type="button"
-          onClick={handleButton}
-        >
-          {name}
-        </Button>
-      </Tooltip>
+      <button
+        name={name}
+        className="ctrl-btn"
+        type="button"
+        onClick={handleButton}
+      >
+        {name}
+      </button>
     </>
   );
 };

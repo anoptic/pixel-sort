@@ -1,5 +1,3 @@
-import { ThemeContext } from '@geist-ui/core/esm/use-theme/theme-context';
-import { Checkbox, InputWrapper, Slider, Text } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { SortThreshold } from './Controls';
 
@@ -24,25 +22,25 @@ const Threshold = ({ handleThreshold }: ThresholdProps) => {
 
   return (
     <div className="threshold">
-      <InputWrapper label="Threshold" description={info}>
-        <Slider
+      <div>
+        <label htmlFor="threshold">Threshold</label>
+        <input
+          type="range"
+          name="threshold"
           min={0}
           max={255}
           value={slide}
-          onChange={setSlide}
-          styles={{
-            track: { backgroundColor: 'red' }, //style on .track::before
-            bar: { backgroundColor: 'green' },
-            thumb: { borderColor: 'green', backgroundColor: 'green' },
-          }}
+          // onChange={setSlide}
         />
-      </InputWrapper>
-      <Checkbox
-        label="Invert"
-        checked={checkbox}
-        onChange={(e) => setCheckbox(e.currentTarget.checked)}
-        style={{ marginTop: 8 }}
-      />
+      </div>
+      <div>
+        <input
+          type="checkbox"
+          name="invert"
+          onChange={(e) => setCheckbox(e.currentTarget.checked)}
+        />
+        <label htmlFor="invert">Invert</label>
+      </div>
     </div>
   );
 };

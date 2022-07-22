@@ -1,17 +1,16 @@
-import { ActionIcon, ColorScheme, Tooltip } from "@mantine/core";
+import { ActionIcon, Tooltip } from "@mantine/core";
 import { ReactNode } from "react";
 
 export interface ModeIconProps {
   label: string;
   children: ReactNode;
   // darkMode: boolean;
-  toggleColorScheme: () => void;
+  // toggleColorScheme: () => void;
 }
 
 const ModeIcon = ({
   label,
   children,
-  toggleColorScheme,
 }: ModeIconProps) => {
   // console.log(props);
 
@@ -19,7 +18,7 @@ const ModeIcon = ({
     <>
       <Tooltip label={label}>
         <ActionIcon
-          onClick={() => toggleColorScheme()}
+          // onClick={() => toggleColorScheme()}
           variant="hover"
         >
           {children}
