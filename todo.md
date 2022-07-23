@@ -26,3 +26,4 @@ colors/design
 sort mode
   ~~line spacing in select~~ ~~not possible, set dropdown height instead~~
   possible? - change threshold to match hsl - 0-359 for hue, 0-99 for sat & lightness
+

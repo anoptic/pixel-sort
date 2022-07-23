@@ -1,22 +1,35 @@
 import { MouseEvent } from 'react';
+import { styled } from '../../../stitches.config';
 import Btn from './Btn';
 
 export interface ButtonsProps {
   handleButton: (event: MouseEvent<HTMLButtonElement>) => void;
 }
 
+const ButtonContainer = styled('div', {
+  borderTop: '1px solid $c3',
+  display: 'flex',
+  justifyContent: 'space-between',
+  padding: '1rem 0',
+  width: '100%',
+});
+
 const Buttons = ({ handleButton }: ButtonsProps) => {
   // console.log(props);
 
   return (
-    <div className="btns">
+    <ButtonContainer>
       <Btn
         name="Sort"
         label="Apply sort parameters"
         handleButton={handleButton}
       />
 
-      <Btn name="Save" label="Download sorted image" handleButton={handleButton} />
+      <Btn
+        name="Save"
+        label="Download sorted image"
+        handleButton={handleButton}
+      />
 
       <Btn
         name="Reset"
@@ -25,7 +38,7 @@ const Buttons = ({ handleButton }: ButtonsProps) => {
       />
 
       <Btn name="Refresh" label="Load new image" handleButton={handleButton} />
-    </div>
+    </ButtonContainer>
   );
 };
 

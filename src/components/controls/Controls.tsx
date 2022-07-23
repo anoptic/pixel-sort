@@ -4,6 +4,7 @@ import Sort from './Sort';
 import Threshold from './Threshold';
 import imageSort from '../../funcs/imageSort';
 import { PixelChoice } from '../Sorter';
+import { styled } from '../../../stitches.config';
 
 interface ControlsProps {
   pixelChoice: PixelChoice | null;
@@ -22,6 +23,15 @@ export interface SortThreshold {
   inverted: boolean;
   value: number;
 }
+
+const ControlContainer = styled('div', {
+  alignItems: 'center',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  margin: '0 auto',
+  width: '50%',
+});
 
 const Controls = ({
   pixelChoice,
@@ -120,7 +130,7 @@ const Controls = ({
   };
 
   return (
-    <div className="controls column">
+    <ControlContainer>
       <Buttons handleButton={handleButton} />
       <Sort
         handleRadio={handleRadio}
@@ -128,7 +138,7 @@ const Controls = ({
         handleSelect={handleSelect}
       />
       <Threshold handleThreshold={handleThreshold} />
-    </div>
+    </ControlContainer>
   );
 };
 

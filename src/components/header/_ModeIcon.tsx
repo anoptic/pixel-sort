@@ -1,4 +1,4 @@
-import { ActionIcon, Tooltip } from "@mantine/core";
+// import { ActionIcon, Tooltip } from "@mantine/core";
 import { ReactNode } from "react";
 
 export interface ModeIconProps {
@@ -16,14 +16,14 @@ const ModeIcon = ({
 
   return (
     <>
-      <Tooltip label={label}>
+      {/* <Tooltip label={label}>
         <ActionIcon
           // onClick={() => toggleColorScheme()}
           variant="hover"
         >
           {children}
         </ActionIcon>
-      </Tooltip>
+      </Tooltip> */}
     </>
   );
 };
