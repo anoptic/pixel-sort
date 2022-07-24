@@ -7,7 +7,7 @@ export interface ButtonsProps {
 }
 
 const ButtonContainer = styled('div', {
-  borderTop: '1px solid $c3',
+  borderTop: '1px solid $secondary',
   display: 'flex',
   justifyContent: 'space-between',
   padding: '1rem 0',

@@ -1,4 +1,4 @@
-import { useState, MouseEvent } from 'react';
+import { useState, MouseEvent, ChangeEvent } from 'react';
 import Buttons from './Buttons';
 import Sort from './Sort';
 import Threshold from './Threshold';
@@ -96,8 +96,8 @@ const Controls = ({
     }
   };
 
-  const handleRadio = (value: SortDir) => {
-    setSortDir(value);
+  const handleRadio = (event: any) => {
+    setSortDir(event.target.value);
   };
 
   const handleSelect = (value: ModeValue) => {

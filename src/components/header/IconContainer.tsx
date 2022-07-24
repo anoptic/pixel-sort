@@ -20,15 +20,20 @@ const IconBox = styled('button', {
   backgroundColor: 'transparent',
   padding: '0 0',
   // margin: '8px 8px',
-  '&:hover': {
-    color: 'darkcyan',
-  },
+  // '&:hover': {
+  //   color: 'red',
+  //   // boxShadow: '0 0 0 2px $secondary',
+  // },
 });
 
 const IconMode = styled('div', {
-  display: 'flex',
   alignItems: 'center',
+  color: '$fg',
+  display: 'flex',
   justifyContent: 'center',
+  '&:hover': {
+    color: '$primary',
+  },
   $$enbiggen: 'scale(1.4, 1.4)',
 
   variants: {
@@ -37,7 +42,7 @@ const IconMode = styled('div', {
         transform: '$$enbiggen rotate(180deg)',
       },
       light: {
-        transform: '$$enbiggen rotate(0deg)',
+        transform: '$$enbiggen rotate(180deg)',
       },
       plain: {
         transform: '$$enbiggen',

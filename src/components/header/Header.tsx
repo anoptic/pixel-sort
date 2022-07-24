@@ -1,12 +1,12 @@
-import { useState } from 'react';
 import LinkIcon from './LinkIcon';
 import ModeSwitch from './ModeSwitch';
 import { Mode } from './IconContainer';
 import { styled } from '../../../stitches.config';
+import { Separator } from './Separator';
 
 interface HeaderProps {
-  dark: boolean
-  setDark: (dark: boolean) => void
+  dark: boolean;
+  setDark: (dark: boolean) => void;
 }
 
 const HeaderContainer = styled('header', {
@@ -22,6 +22,11 @@ const Title = styled('h1', {
   fontSize: '1.25em',
 });
 
+const IconBox = styled('div', {
+  display: 'flex',
+  alignItems: 'center',
+});
+
 const clickLink = () => {
   const link = document.createElement('a');
   link.href = 'https://github.com/anoptic';
@@ -32,7 +37,7 @@ const clickLink = () => {
   document.body.removeChild(link);
 };
 
-const Header = ({dark, setDark}: HeaderProps) => {
+const Header = ({ dark, setDark }: HeaderProps) => {
   // console.log(props);
   // const [dark, setDark] = useState(true);
 
@@ -45,10 +50,11 @@ const Header = ({dark, setDark}: HeaderProps) => {
   return (
     <HeaderContainer>
       <Title>Pixel Sorter</Title>
-      <div className="icons">
+      <IconBox>
         <ModeSwitch dark={dark} handleClick={handleClick} />
+        <Separator decorative orientation="vertical" />
         <LinkIcon handleClick={handleClick} />
-      </div>
+      </IconBox>
     </HeaderContainer>
   );
 };

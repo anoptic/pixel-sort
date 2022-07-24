@@ -18,7 +18,7 @@ const ThresholdContainer = styled('div', {
   width: '100%',
 })
 
-const checkboxStyle = css({
+const CheckboxStyled = styled('div', {
   display: 'flex',
   alignItems: 'center',
   marginTop: 8,
@@ -49,11 +49,11 @@ const Threshold = ({ handleThreshold }: ThresholdProps) => {
           name="threshold"
           min={0}
           max={255}
-          value={slide}
+          defaultValue={slide}
           // onChange={setSlide}
         />
       </div>
-      <div className={checkboxStyle()}>
+      <CheckboxStyled>
         {/* <input
           type="checkbox"
           name="invert"
@@ -66,7 +66,7 @@ const Threshold = ({ handleThreshold }: ThresholdProps) => {
           </CheckboxIndicator>
         </Checkbox>
         <Label htmlFor="invert">Invert</Label>
-      </div>
+      </CheckboxStyled>
     </ThresholdContainer>
   );
 };

@@ -5,17 +5,17 @@ import * as LabelPrimitive from '@radix-ui/react-label'
 
 const StyledCheckbox = styled(CheckboxPrimitive.Root, {
   all: 'unset',
-  backgroundColor: 'white',
-  width: 20,
-  height: 20,
+  backgroundColor: '$c5',
+  width: 18,
+  height: 18,
   marginRight: 8,
-  borderRadius: 4,
+  borderRadius: 2,
   display: 'flex',
-  // alignItems: 'center',
+  alignItems: 'center',
   justifyContent: 'center',
   boxShadow: `0 0 0 1px ${blackA.blackA8}`,
   // borderColor: blackA.blackA12,
-  '&:hover': { backgroundColor: violet.violet3 },
+  // '&:hover': { backgroundColor: violet.violet3 },
   '&:focus': { boxShadow: `0 0 0 2px black` },
 });
 
