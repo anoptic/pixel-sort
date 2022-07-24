@@ -1,31 +1,11 @@
 import LinkIcon from './LinkIcon';
 import ModeSwitch from './ModeSwitch';
 import { Mode } from './IconContainer';
-import { styled } from '../../../stitches.config';
-import { Separator } from './Separator';
 
 interface HeaderProps {
   dark: boolean;
   setDark: (dark: boolean) => void;
 }
-
-const HeaderContainer = styled('header', {
-  alignItems: 'center',
-  display: 'flex',
-  justifyContent: 'space-between',
-  margin: '1rem auto 0',
-  width: '50%',
-});
-
-const Title = styled('h1', {
-  all: 'unset',
-  fontSize: '1.25em',
-});
-
-const IconBox = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-});
 
 const clickLink = () => {
   const link = document.createElement('a');
@@ -48,14 +28,13 @@ const Header = ({ dark, setDark }: HeaderProps) => {
   };
 
   return (
-    <HeaderContainer>
-      <Title>Pixel Sorter</Title>
-      <IconBox>
+    <header>
+      <p>Pixel Sorter</p>
+      <div>
         <ModeSwitch dark={dark} handleClick={handleClick} />
-        <Separator decorative orientation="vertical" />
         <LinkIcon handleClick={handleClick} />
-      </IconBox>
-    </HeaderContainer>
+      </div>
+    </header>
   );
 };
 

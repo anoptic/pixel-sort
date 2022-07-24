@@ -1,16 +1,14 @@
-import { GitHubLogoIcon } from '@radix-ui/react-icons';
-import { Mode } from './IconContainer';
-import IconContainer from './IconContainer';
+import {github} from './icons'
 
 interface ModeSwitchProps {
-  handleClick: (mode: Mode) => void;
+  handleClick: (mode: any) => void;
 }
 
 const LinkIcon = ({ handleClick }: ModeSwitchProps) => {
   return (
-    <IconContainer mode="plain" handleClick={handleClick}>
-      <GitHubLogoIcon />
-    </IconContainer>
+    <div>
+      {github}
+    </div>
   );
 };
 

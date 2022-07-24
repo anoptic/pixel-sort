@@ -1,6 +1,5 @@
 import { useQueryClient } from '@tanstack/react-query';
 import { useState, useEffect, useRef, MutableRefObject } from 'react';
-import { styled } from '../../stitches.config';
 import useNewImage, { NewImageObject } from '../hooks/useNewImage';
 import Caption from './Caption';
 
@@ -13,12 +12,6 @@ interface ImageProps {
   newImageCache: NewImageObject | undefined;
   init: boolean;
 }
-
-const CanvasContainer = styled('div', {
-  display: 'flex',
-  justifyContent: 'center',
-  margin: '1rem 0 0',
-})
 
 const initImage = {
   desktop: '/assets/heads.jpg',
@@ -103,7 +96,7 @@ const Canvas = ({
   }, [newImageCache]);
 
   return (
-    <CanvasContainer>
+    <>
       <canvas id="cacheCanvas" ref={cacheRef} width={720} height={480}></canvas>
       <figure>
         {/* <div className="topRule"></div> */}
@@ -120,7 +113,7 @@ const Canvas = ({
           captionLink={captionLink}
         />
       </figure>
-    </CanvasContainer>
+    </>
   );
 };
 

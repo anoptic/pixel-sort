@@ -1,6 +1,5 @@
 import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
 import { useState } from 'react';
-import { styled } from '../../../stitches.config';
 import { ModeValue, SortDir } from './Controls';
 
 interface SortProps {
@@ -9,38 +8,20 @@ interface SortProps {
   handleSelect: (value: ModeValue) => void;
 }
 
-const SortContainer = styled('div', {
-  display: 'flex',
-  justifyContent: 'space-between',
-  width: '100%',
-});
-
-const SortOptionContainer = styled('div', {
-  border: '1px solid $secondary',
-  borderRadius: 4,
-  padding: '0.5rem 2rem 1rem',
-});
-
-// const Flex = styled('div', {
-//   alignItems: 'center',
-//   display: 'flex',
-//   // margin: '10px 0',
-// });
-
 const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
   // console.log(props);
   // const [modeValue, setModeValue] = useState<string | null>('r');
 
   return (
-    <SortContainer>
-      <SortOptionContainer>
+    <>
+      <div>
         <FormControl>
           <FormLabel id="sortDirLabel">Sort Direction</FormLabel>
           <RadioGroup
             aria-labelledby="sortDirLabel"
             defaultValue="vert"
             name="sortDirGroup"
-            onChange={handleRadio}
+            // onChange={handleRadio}
           >
             <FormControlLabel
               control={<Radio />}
@@ -59,8 +40,8 @@ const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
             />
           </RadioGroup>
         </FormControl>
-      </SortOptionContainer>
-      <SortOptionContainer>
+      </div>
+      <div>
         <div>
           <label htmlFor="mode">Sort Mode</label>
           <select name="mode" id="mode">
@@ -76,8 +57,8 @@ const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
             </optgroup>
           </select>
         </div>
-      </SortOptionContainer>
-    </SortContainer>
+      </div>
+    </>
   );
 };
 

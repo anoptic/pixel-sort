@@ -1,34 +1,14 @@
 import { useEffect, useState } from 'react';
 import { SortThreshold } from './Controls';
-import { Checkbox, CheckboxIndicator, Label } from './Checkbox';
-import { CheckIcon } from '@radix-ui/react-icons';
-import { css } from '@stitches/react';
-import { CheckedState } from '@radix-ui/react-checkbox';
-import { styled } from '../../../stitches.config';
 
 interface ThresholdProps {
   handleThreshold: (thresh: SortThreshold) => void;
 }
 
-const ThresholdContainer = styled('div', {
-  border: '1px solid $fg',
-  borderRadius: 4,
-  marginTop: '1rem',
-  padding: '0.5rem 2rem',
-  width: '100%',
-})
-
-const CheckboxStyled = styled('div', {
-  display: 'flex',
-  alignItems: 'center',
-  marginTop: 8,
-});
-
-
 const Threshold = ({ handleThreshold }: ThresholdProps) => {
   // console.log(props);
   const [slide, setSlide] = useState(127);
-  const [checkbox, setCheckbox] = useState<CheckedState>(false);
+  const [checkbox, setCheckbox] = useState(false);
   const [info, setInfo] = useState(
     'Only values greater than the threshold will be sorted'
   );
@@ -41,7 +21,7 @@ const Threshold = ({ handleThreshold }: ThresholdProps) => {
   // }, [slide, checkbox]);
 
   return (
-    <ThresholdContainer>
+    <>
       <div>
         <label htmlFor="threshold">Threshold</label>
         <input
@@ -53,21 +33,15 @@ const Threshold = ({ handleThreshold }: ThresholdProps) => {
           // onChange={setSlide}
         />
       </div>
-      <CheckboxStyled>
-        {/* <input
+      <div>
+        <input
           type="checkbox"
           name="invert"
           onChange={(e) => setCheckbox(e.currentTarget.checked)}
         />
-        <label htmlFor="invert">Invert</label> */}
-        <Checkbox checked={checkbox} onCheckedChange={(e) => setCheckbox(e)}>
-          <CheckboxIndicator>
-            <CheckIcon />
-          </CheckboxIndicator>
-        </Checkbox>
-        <Label htmlFor="invert">Invert</Label>
-      </CheckboxStyled>
-    </ThresholdContainer>
+        <label htmlFor="invert">Invert</label>
+      </div>
+    </>
   );
 };
 

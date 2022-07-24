@@ -1,19 +1,17 @@
-import { Half2Icon } from '@radix-ui/react-icons';
-import { Mode } from './IconContainer';
-import IconContainer from './IconContainer';
+import {sun} from './icons'
 
 interface ModeSwitchProps {
   dark: boolean;
-  handleClick: (mode: Mode) => void;
+  handleClick: (mode: any) => void;
 }
 
 const ModeSwitch = ({ dark, handleClick }: ModeSwitchProps) => {
   // console.log(dark);
 
   return (
-    <IconContainer mode={dark ? 'dark' : 'light'} handleClick={handleClick}>
-      <Half2Icon />
-    </IconContainer>
+    <div>
+      {sun}
+    </div>
   );
 };
 
