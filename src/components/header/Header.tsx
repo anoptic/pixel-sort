@@ -2,10 +2,10 @@ import { Box, Divider, Stack } from '@mui/material';
 import LinkIcon from './LinkIcon';
 import ModeSwitch from './ModeSwitch';
 
-export interface HeaderProps {
-  dark: boolean;
-  setDark: (dark: boolean) => void;
-}
+// export interface HeaderProps {
+//   dark: boolean;
+//   setDark: (dark: boolean) => void;
+// }
 
 // const clickLink = () => {
 //   const link = document.createElement('a');
@@ -17,7 +17,8 @@ export interface HeaderProps {
 //   document.body.removeChild(link);
 // };
 
-const Header = ({ dark, setDark }: HeaderProps) => {
+// const Header = ({ dark, setDark }: HeaderProps) => {
+const Header = () => {
   // console.log(props);
   // const [dark, setDark] = useState(true);
 
@@ -43,7 +44,8 @@ const Header = ({ dark, setDark }: HeaderProps) => {
         divider={<Divider orientation="vertical" variant="inset" flexItem />}
         spacing={1}
       >
-        <ModeSwitch dark={dark} setDark={setDark} />
+        {/* <ModeSwitch dark={dark} setDark={setDark} /> */}
+        <ModeSwitch />
         <LinkIcon />
       </Stack>
     </Box>
