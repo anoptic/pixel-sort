@@ -1,6 +1,6 @@
+import { Box, Divider, Stack } from '@mui/material';
 import LinkIcon from './LinkIcon';
 import ModeSwitch from './ModeSwitch';
-import { Mode } from './IconContainer';
 
 interface HeaderProps {
   dark: boolean;
@@ -21,20 +21,31 @@ const Header = ({ dark, setDark }: HeaderProps) => {
   // console.log(props);
   // const [dark, setDark] = useState(true);
 
-  const handleClick = (mode: Mode) => {
+  const handleClick = (mode: any) => {
     // console.log(e);
     if (mode === 'dark' || mode === 'light') setDark(!dark);
     if (mode === 'plain') clickLink();
   };
 
   return (
-    <header>
+    <Box
+      sx={{
+        alignItems: 'center',
+        display: 'flex',
+        justifyContent: 'space-between',
+        margin: '0.5rem 3rem',
+      }}
+    >
       <p>Pixel Sorter</p>
-      <div>
-        <ModeSwitch dark={dark} handleClick={handleClick} />
-        <LinkIcon handleClick={handleClick} />
-      </div>
-    </header>
+      <Stack
+        direction="row"
+        divider={<Divider orientation="vertical" variant="inset" flexItem />}
+        spacing={1}
+      >
+        <ModeSwitch />
+        <LinkIcon />
+      </Stack>
+    </Box>
   );
 };
 

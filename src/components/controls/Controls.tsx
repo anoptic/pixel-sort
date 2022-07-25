@@ -4,6 +4,7 @@ import Sort from './Sort';
 import Threshold from './Threshold';
 import imageSort from '../../funcs/imageSort';
 import { PixelChoice } from '../Sorter';
+import { Box, Divider } from '@mui/material';
 
 interface ControlsProps {
   pixelChoice: PixelChoice | null;
@@ -22,6 +23,15 @@ export interface SortThreshold {
   inverted: boolean;
   value: number;
 }
+
+const sortModeObject = {
+  r: { mode: 'rgb', value: 0 },
+  g: { mode: 'rgb', value: 1 },
+  b: { mode: 'rgb', value: 2 },
+  h: { mode: 'hsl', value: 0 },
+  s: { mode: 'hsl', value: 1 },
+  l: { mode: 'hsl', value: 2 },
+};
 
 const Controls = ({
   pixelChoice,
@@ -66,7 +76,8 @@ const Controls = ({
   };
 
   const handleButton = (event: MouseEvent<HTMLButtonElement>) => {
-    const pressedButton = event.currentTarget.name;
+    // console.log(event.currentTarget.value);
+    const pressedButton = event.currentTarget.value;
     switch (pressedButton) {
       case 'Sort': {
         sortImage();
@@ -87,10 +98,12 @@ const Controls = ({
   };
 
   const handleRadio = (event: any) => {
+    // console.log(event.target.value);
     setSortDir(event.target.value);
   };
 
-  const handleSelect = (value: ModeValue) => {
+  const handleSelect = (event: any) => {
+    const value = event.target.value; 
     setModeValue(value);
     switch (value) {
       case 'r':
@@ -120,7 +133,10 @@ const Controls = ({
   };
 
   return (
-    <div>
+    <Box sx={{
+      margin: '0 3rem',
+    }}>
+      <Divider />
       <Buttons handleButton={handleButton} />
       <Sort
         handleRadio={handleRadio}
@@ -128,7 +144,7 @@ const Controls = ({
         handleSelect={handleSelect}
       />
       <Threshold handleThreshold={handleThreshold} />
-    </div>
+    </Box>
   );
 };
 

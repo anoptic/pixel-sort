@@ -3,7 +3,6 @@ import Controls from './controls/Controls';
 import Canvas from './Canvas';
 import imagePrep from '../funcs/imagePrep';
 import useNewImage, { NewImageObject } from '../hooks/useNewImage';
-// import { Loader } from '@mantine/core';
 
 export interface PixelChoice {
   rgb: number[][];

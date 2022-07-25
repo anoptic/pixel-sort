@@ -1,17 +1,13 @@
-import {sun} from './icons'
+import { DarkModeOutlined, LightModeOutlined } from '@mui/icons-material';
+import { IconButton, Tooltip } from '@mui/material';
 
-interface ModeSwitchProps {
-  dark: boolean;
-  handleClick: (mode: any) => void;
-}
-
-const ModeSwitch = ({ dark, handleClick }: ModeSwitchProps) => {
-  // console.log(dark);
-
+const ModeSwitch = () => {
   return (
-    <div>
-      {sun}
-    </div>
+    <Tooltip title="Dark mode" placement='bottom'>
+      <IconButton aria-label="dark mode">
+        <DarkModeOutlined />
+      </IconButton>
+    </Tooltip>
   );
 };
 

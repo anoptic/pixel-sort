@@ -1,14 +1,13 @@
-import {github} from './icons'
+import { GitHub } from '@mui/icons-material';
+import { IconButton, Tooltip } from '@mui/material';
 
-interface ModeSwitchProps {
-  handleClick: (mode: any) => void;
-}
-
-const LinkIcon = ({ handleClick }: ModeSwitchProps) => {
+const LinkIcon = () => {
   return (
-    <div>
-      {github}
-    </div>
+    <Tooltip title="View source" placement="bottom">
+      <IconButton aria-label="github">
+        <GitHub />
+      </IconButton>
+    </Tooltip>
   );
 };
 

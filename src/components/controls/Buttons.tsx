@@ -1,3 +1,4 @@
+import { Box } from '@mui/material';
 import { MouseEvent } from 'react';
 import Btn from './Btn';
 
@@ -9,27 +10,45 @@ const Buttons = ({ handleButton }: ButtonsProps) => {
   // console.log(props);
 
   return (
-    <>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        padding: '1rem 0',
+      }}
+    >
       <Btn
-        name="Sort"
         label="Apply sort parameters"
+        variant="contained"
         handleButton={handleButton}
-      />
+      >
+        Sort
+      </Btn>
 
       <Btn
-        name="Save"
-        label="Download sorted image"
-        handleButton={handleButton}
-      />
-
-      <Btn
-        name="Reset"
         label="Reset to unsorted image"
+        variant="outlined"
         handleButton={handleButton}
-      />
+      >
+        Reset
+      </Btn>
 
-      <Btn name="Refresh" label="Load new image" handleButton={handleButton} />
-    </>
+      <Btn
+        label="Download sorted image"
+        variant="outlined"
+        handleButton={handleButton}
+      >
+        Save
+      </Btn>
+
+      <Btn
+        label="Load new image"
+        variant="outlined"
+        handleButton={handleButton}
+      >
+        Refresh
+      </Btn>
+    </Box>
   );
 };
 

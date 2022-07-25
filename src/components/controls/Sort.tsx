@@ -1,11 +1,28 @@
-import { FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from '@mui/material';
+import {
+  Box,
+  FormControl,
+  FormControlLabel,
+  FormLabel,
+  ListSubheader,
+  MenuItem,
+  Radio,
+  RadioGroup,
+  Select,
+  SelectChangeEvent,
+} from '@mui/material';
 import { useState } from 'react';
 import { ModeValue, SortDir } from './Controls';
 
 interface SortProps {
-  handleRadio: (value: SortDir) => void;
+  handleRadio: (
+    event: React.ChangeEvent<HTMLInputElement>,
+    value: string
+  ) => void;
   modeValue: ModeValue;
-  handleSelect: (value: ModeValue) => void;
+  handleSelect: (
+    event: SelectChangeEvent<ModeValue>,
+    child: React.ReactNode
+  ) => void;
 }
 
 const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
@@ -13,15 +30,27 @@ const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
   // const [modeValue, setModeValue] = useState<string | null>('r');
 
   return (
-    <>
-      <div>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'space-between',
+      }}
+    >
+      <Box
+        sx={{
+          border: 1,
+          borderRadius: 1,
+          padding: '0.5rem 2rem',
+          width: 260,
+        }}
+      >
         <FormControl>
           <FormLabel id="sortDirLabel">Sort Direction</FormLabel>
           <RadioGroup
             aria-labelledby="sortDirLabel"
             defaultValue="vert"
             name="sortDirGroup"
-            // onChange={handleRadio}
+            onChange={handleRadio}
           >
             <FormControlLabel
               control={<Radio />}
@@ -40,25 +69,39 @@ const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
             />
           </RadioGroup>
         </FormControl>
-      </div>
-      <div>
-        <div>
-          <label htmlFor="mode">Sort Mode</label>
-          <select name="mode" id="mode">
-            <optgroup label="RGB">
-              <option value="r">Red</option>
-              <option value="g">Green</option>
-              <option value="b">Blue</option>
-            </optgroup>
-            <optgroup label="HSL">
-              <option value="h">Hue</option>
-              <option value="s">Saturation</option>
-              <option value="l">Lightness</option>
-            </optgroup>
-          </select>
-        </div>
-      </div>
-    </>
+      </Box>
+      <Box
+        sx={{
+          border: 1,
+          borderRadius: 1,
+          padding: '0.5rem 2rem',
+          width: 260,
+          '& .MuiInputBase-input': {
+            padding: '0.5rem 1rem',
+          },
+          '& .MuiFormLabel-root': {
+            padding: '0 0 8px',
+          },
+        }}
+      >
+        <FormControl>
+          <FormLabel id="sortModeLabel">Sort Mode</FormLabel>
+          <Select value={modeValue} onChange={handleSelect} sx={{
+            padding: '0 0',
+            width: 180,
+          }}>
+            <ListSubheader>RGB</ListSubheader>
+            <MenuItem value="r">Red</MenuItem>
+            <MenuItem value="g">Green</MenuItem>
+            <MenuItem value="b">Blue</MenuItem>
+            <ListSubheader>HSL</ListSubheader>
+            <MenuItem value="h">Hue</MenuItem>
+            <MenuItem value="s">Saturation</MenuItem>
+            <MenuItem value="l">Lightness</MenuItem>
+          </Select>
+        </FormControl>
+      </Box>
+    </Box>
   );
 };
 
