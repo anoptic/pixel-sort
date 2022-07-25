@@ -39,7 +39,7 @@ const Canvas = ({
   const imageRef = useRef<HTMLCanvasElement>({} as HTMLCanvasElement);
   const cacheRef = useRef<HTMLCanvasElement>({} as HTMLCanvasElement);
   const cacheData = useRef<ImageData | null>(null);
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
 
   if (newImageFlag) {
     newImageObject = cacheData.current;

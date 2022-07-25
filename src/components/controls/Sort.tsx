@@ -25,6 +25,13 @@ interface SortProps {
   ) => void;
 }
 
+const boxProps = {
+  border: 1,
+  borderRadius: 1,
+  padding: '0.5rem 2rem',
+  width: 260,
+};
+
 const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
   // console.log(props);
   // const [modeValue, setModeValue] = useState<string | null>('r');
@@ -38,10 +45,7 @@ const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
     >
       <Box
         sx={{
-          border: 1,
-          borderRadius: 1,
-          padding: '0.5rem 2rem',
-          width: 260,
+          ...boxProps,
         }}
       >
         <FormControl>
@@ -72,10 +76,7 @@ const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
       </Box>
       <Box
         sx={{
-          border: 1,
-          borderRadius: 1,
-          padding: '0.5rem 2rem',
-          width: 260,
+          ...boxProps,
           '& .MuiInputBase-input': {
             padding: '0.5rem 1rem',
           },
@@ -86,10 +87,14 @@ const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
       >
         <FormControl>
           <FormLabel id="sortModeLabel">Sort Mode</FormLabel>
-          <Select value={modeValue} onChange={handleSelect} sx={{
-            padding: '0 0',
-            width: 180,
-          }}>
+          <Select
+            value={modeValue}
+            onChange={handleSelect}
+            sx={{
+              padding: '0 0',
+              width: 180,
+            }}
+          >
             <ListSubheader>RGB</ListSubheader>
             <MenuItem value="r">Red</MenuItem>
             <MenuItem value="g">Green</MenuItem>
