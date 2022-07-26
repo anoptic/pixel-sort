@@ -12,6 +12,7 @@ interface ControlsProps {
   imageDL: string | null;
   setNewImageFlag: (newImageFlag: boolean) => void;
   setInit: (init: boolean) => void;
+  fetchError: boolean;
 }
 export type SortDir = 'horz' | 'vert' | 'hove';
 export type ModeValue = 'r' | 'g' | 'b' | 'h' | 's' | 'l';
@@ -39,6 +40,7 @@ const Controls = ({
   imageDL,
   setNewImageFlag,
   setInit,
+  fetchError,
 }: ControlsProps) => {
   // console.log('pixelData', pixelData);
   const [sortDir, setSortDir] = useState<SortDir>('vert');
@@ -90,6 +92,10 @@ const Controls = ({
         setSortedImage(undefined);
         break;
       case 'Refresh':
+        if (fetchError) {
+          console.log('There was an error retrieving a new image');
+          break;
+        }
         setSortedImage(undefined);
         setNewImageFlag(true);
         setInit(false);
@@ -103,7 +109,7 @@ const Controls = ({
   };
 
   const handleSelect = (event: any) => {
-    const value = event.target.value; 
+    const value = event.target.value;
     setModeValue(value);
     switch (value) {
       case 'r':
@@ -133,9 +139,11 @@ const Controls = ({
   };
 
   return (
-    <Box sx={{
-      margin: '0 3rem',
-    }}>
+    <Box
+      sx={{
+        margin: '0 4rem',
+      }}
+    >
       <Divider />
       <Buttons handleButton={handleButton} />
       <Sort

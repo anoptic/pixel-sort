@@ -13,11 +13,11 @@ const fetcher = async () => {
   const res = await fetch(url, {
     mode: 'cors',
     headers: {
-      Authorization: `Client-ID ${import.meta.env.VITE_ACCESS_KEY}`,
+      'Authorization': `Client-ID ${import.meta.env.VITE_ACCESS_KEY}`,
       'Accept-Version': 'v1',
     },
   });
-  if (!res.ok) throw new Error('Network request error')
+  if (!res.ok) throw new Error('Network request error');
   return await res.json();
 };
 
@@ -28,6 +28,8 @@ const useNewImage = () => {
 
   const { data, error, isLoading, isError } = useQuery(['random'], fetcher, {
     staleTime: Infinity,
+    retry: false,
+    enabled: false,
   });
 
   const newImg: NewImageObject = {
@@ -35,6 +37,10 @@ const useNewImage = () => {
     imageCreditLink: '',
     imageCreditName: '',
   };
+
+  if (error) {
+    return newImg;
+  }
 
   if (data) {
     // console.log('!!!DATA!!!');

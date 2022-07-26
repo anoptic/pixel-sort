@@ -9,6 +9,7 @@ import {
   RadioGroup,
   Select,
   SelectChangeEvent,
+  useTheme,
 } from '@mui/material';
 import { useState } from 'react';
 import { ModeValue, SortDir } from './Controls';
@@ -28,13 +29,14 @@ interface SortProps {
 const boxProps = {
   border: 1,
   borderRadius: 1,
-  padding: '0.5rem 2rem',
+  padding: '0.5rem 2rem 1rem',
   width: 260,
 };
 
 const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
   // console.log(props);
   // const [modeValue, setModeValue] = useState<string | null>('r');
+  const theme = useTheme();
 
   return (
     <Box
@@ -46,6 +48,7 @@ const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
       <Box
         sx={{
           ...boxProps,
+          borderColor: theme.palette.divider,
         }}
       >
         <FormControl>
@@ -55,6 +58,11 @@ const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
             defaultValue="vert"
             name="sortDirGroup"
             onChange={handleRadio}
+            sx={{
+              '& .MuiRadio-root': {
+                padding: '4px 9px',
+              },
+            }}
           >
             <FormControlLabel
               control={<Radio />}
@@ -77,7 +85,9 @@ const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
       <Box
         sx={{
           ...boxProps,
+          borderColor: theme.palette.divider,
           '& .MuiInputBase-input': {
+            backgroundColor: 'secondary.main',
             padding: '0.5rem 1rem',
           },
           '& .MuiFormLabel-root': {
@@ -93,13 +103,39 @@ const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
             sx={{
               padding: '0 0',
               width: 180,
+              '& .MuiListSubheader-root': {
+                fontSize: '0.5rem',
+                fontWeight: 700,
+                lineHeight: '32px',
+              },
+              // '& .MuiMenuItem-root': {
+              //   lineHeight: 1,
+              //   // color: '#112233',
+              // },
+              '& .MuiMenuItem-root.Mui-selected': {
+                backgroundColor: 'primary.main',
+              }
             }}
           >
-            <ListSubheader>RGB</ListSubheader>
+            <ListSubheader
+              sx={{
+                fontWeight: 700,
+                lineHeight: '32px',
+              }}
+            >
+              RGB
+            </ListSubheader>
             <MenuItem value="r">Red</MenuItem>
             <MenuItem value="g">Green</MenuItem>
             <MenuItem value="b">Blue</MenuItem>
-            <ListSubheader>HSL</ListSubheader>
+            <ListSubheader
+              sx={{
+                fontWeight: 700,
+                lineHeight: '32px',
+              }}
+            >
+              HSL
+            </ListSubheader>
             <MenuItem value="h">Hue</MenuItem>
             <MenuItem value="s">Saturation</MenuItem>
             <MenuItem value="l">Lightness</MenuItem>

@@ -5,6 +5,7 @@ import {
   FormGroup,
   FormLabel,
   Slider,
+  useTheme,
 } from '@mui/material';
 import { useEffect, useState } from 'react';
 import { SortThreshold } from './Controls';
@@ -20,6 +21,7 @@ const Threshold = ({ handleThreshold }: ThresholdProps) => {
   const [info, setInfo] = useState(
     'Only values greater than the threshold will be sorted'
   );
+  const theme = useTheme();
 
   const handleSlide = (event: any) => {
     setSlide(() => event.target.value);
@@ -42,6 +44,7 @@ const Threshold = ({ handleThreshold }: ThresholdProps) => {
         borderRadius: 1,
         margin: '1rem 0',
         padding: '0.5rem 2rem',
+        borderColor: theme.palette.divider,
       }}
     >
       <FormGroup>

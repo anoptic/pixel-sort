@@ -19,7 +19,8 @@ const Sorter = () => {
   const [imageDL, setImageDL] = useState<string | null>(null);
   const [newImageFlag, setNewImageFlag] = useState(false);
   const [init, setInit] = useState(true);
-  const newImageCache = useNewImage();
+  // const newImageCache = useNewImage();
+  const fetchResponse = useNewImage();
   
   useEffect(() => {
     if (imageData) {
@@ -37,7 +38,7 @@ const Sorter = () => {
         setImageDL={setImageDL}
         newImageFlag={newImageFlag}
         setNewImageFlag={setNewImageFlag}
-        newImageCache={newImageCache}
+        newImageCache={fetchResponse}
         init={init}
       />
 
@@ -47,6 +48,7 @@ const Sorter = () => {
         imageDL={imageDL}
         setNewImageFlag={setNewImageFlag}
         setInit={setInit}
+        fetchError={fetchResponse ? false : true}
       />
     </main>
   );

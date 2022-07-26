@@ -1,4 +1,4 @@
-import { Box } from '@mui/material';
+import { Box, useTheme } from '@mui/material';
 import { MouseEvent } from 'react';
 import Btn from './Btn';
 
@@ -8,13 +8,21 @@ export interface ButtonsProps {
 
 const Buttons = ({ handleButton }: ButtonsProps) => {
   // console.log(props);
-
+  
   return (
     <Box
       sx={{
         display: 'flex',
         justifyContent: 'space-between',
         padding: '1rem 0',
+        '& .MuiButton-contained': {
+          fontWeight: 700,
+        },
+        '& .MuiButton-outlined': {
+          backgroundColor: 'secondary.main',
+          color: 'text.primary',
+          // fontWeight: 400,
+        },
       }}
     >
       <Btn

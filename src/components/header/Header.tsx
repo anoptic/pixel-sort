@@ -1,4 +1,4 @@
-import { Box, Divider, Stack } from '@mui/material';
+import { Box, Divider, Stack, Typography } from '@mui/material';
 import LinkIcon from './LinkIcon';
 import ModeSwitch from './ModeSwitch';
 
@@ -23,10 +23,10 @@ const Header = () => {
   // const [dark, setDark] = useState(true);
 
   // const handleClick = () => {
-    // console.log(e);
-    // setDark(dark => !dark)
-    // if (mode === 'dark' || mode === 'light') setDark(!dark);
-    // if (mode === 'plain') clickLink();
+  // console.log(e);
+  // setDark(dark => !dark)
+  // if (mode === 'dark' || mode === 'light') setDark(!dark);
+  // if (mode === 'plain') clickLink();
   // };
 
   return (
@@ -35,10 +35,19 @@ const Header = () => {
         alignItems: 'center',
         display: 'flex',
         justifyContent: 'space-between',
-        margin: '0.5rem 3rem',
+        margin: '0.5rem 4rem',
       }}
     >
-      <p>Pixel Sorter</p>
+      <Typography
+        component="h1"
+        variant="h5"
+        sx={{
+          fontSize: '20px',
+          fontWeight: 300,
+        }}
+      >
+        Pixel Sorter
+      </Typography>
       <Stack
         direction="row"
         divider={<Divider orientation="vertical" variant="inset" flexItem />}
