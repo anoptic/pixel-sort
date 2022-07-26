@@ -10,7 +10,7 @@ const ModeSwitch = () => {
   const colorMode = useContext(ColorModeContext);
 
   return (
-    <Tooltip title={theme.palette.mode ? 'Light mode' : 'Dark mode'} placement="bottom">
+    <Tooltip title={theme.palette.mode === 'dark' ? 'Light mode' : 'Dark mode'} placement="bottom">
       <IconButton
         aria-label="dark mode switch"
         // onClick={() => setDark(!dark)}
