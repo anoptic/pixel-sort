@@ -12,6 +12,7 @@ interface ImageProps {
   setNewImageFlag: (newImageFlag: boolean) => void;
   newImageCache: NewImageObject | undefined;
   init: boolean;
+  setSpinner: (spinner: boolean) => void;
 }
 
 const Figure = styled('figure')({
@@ -39,6 +40,7 @@ const Canvas = ({
   setNewImageFlag,
   newImageCache,
   init,
+  setSpinner,
 }: ImageProps) => {
   // console.log('Canvas');
   const imageRef = useRef<HTMLCanvasElement>({} as HTMLCanvasElement);
@@ -64,6 +66,7 @@ const Canvas = ({
           sortedCanvas.data[i] = sortedImage[i];
         });
         imageContext.putImageData(sortedCanvas, 0, 0);
+        // setSpinner(false);
         setImageDL(imageCanvas.toDataURL());
       } else if (newImageObject) {
         imageContext.putImageData(newImageObject, 0, 0);

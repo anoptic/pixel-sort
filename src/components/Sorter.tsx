@@ -3,6 +3,17 @@ import Controls from './controls/Controls';
 import Canvas from './Canvas';
 import imagePrep from '../funcs/imagePrep';
 import useNewImage, { NewImageObject } from '../hooks/useNewImage';
+import {
+  Backdrop,
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  Typography,
+} from '@mui/material';
+import { fontWeight } from '@mui/system';
 
 export interface PixelChoice {
   rgb: number[][];
@@ -19,9 +30,14 @@ const Sorter = () => {
   const [imageDL, setImageDL] = useState<string | null>(null);
   const [newImageFlag, setNewImageFlag] = useState(false);
   const [init, setInit] = useState(true);
+  const [spinner, setSpinner] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(false);
   // const newImageCache = useNewImage();
   const fetchResponse = useNewImage();
-  
+
+  const handleBackdrop = () => setSpinner(false);
+  const handleErrorMessage = () => setErrorMessage(false);
+
   useEffect(() => {
     if (imageData) {
       // console.log('data', imageData);
@@ -32,6 +48,61 @@ const Sorter = () => {
 
   return (
     <main>
+      <Backdrop
+        open={spinner}
+        // transitionDuration={0}
+        onClick={handleBackdrop}
+        sx={{
+          color: '#fff',
+          display: 'flex',
+          flexDirection: 'column',
+          position: 'absolute',
+          top: '-50%',
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+        }}
+      >
+        <Typography
+          variant="h6"
+          sx={{
+            marginBottom: 2,
+          }}
+        >
+          Sorting…please wait
+        </Typography>
+        <CircularProgress color="inherit" />
+      </Backdrop>
+
+      <Dialog
+        open={errorMessage}
+        onClose={handleErrorMessage}
+        maxWidth="md"
+        sx={{
+          position: 'absolute',
+          top: '-50%',
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          boxShadow: 4,
+          // '& .MuiDialogContent-root': {
+          //   backgroundColor: 'primary.dark',
+          // },
+          '& .MuiDialogContentText-root': {
+            color: 'text.primary',
+            fontSize: 16,
+            fontWeight: 700,
+          },
+        }}
+      >
+        <DialogContent>
+          <DialogContentText>
+            An error ocurred while retrieving a new file. Please try again.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleErrorMessage}>
+            Click anywhere to continue
+          </Button>
+        </DialogActions>
+      </Dialog>
+
       <Canvas
         sortedImage={sortedImage}
         setImageData={setImageData}
@@ -40,6 +111,7 @@ const Sorter = () => {
         setNewImageFlag={setNewImageFlag}
         newImageCache={fetchResponse}
         init={init}
+        setSpinner={setSpinner}
       />
 
       <Controls
@@ -49,6 +121,8 @@ const Sorter = () => {
         setNewImageFlag={setNewImageFlag}
         setInit={setInit}
         fetchError={fetchResponse ? false : true}
+        setSpinner={setSpinner}
+        setErrorMessage={setErrorMessage}
       />
     </main>
   );

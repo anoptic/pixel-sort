@@ -40,7 +40,7 @@ const Header = () => {
     >
       <Typography
         component="h1"
-        variant="h5"
+        // variant="h1"
         sx={{
           fontSize: '20px',
           fontWeight: 300,

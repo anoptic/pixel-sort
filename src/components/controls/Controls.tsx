@@ -13,6 +13,8 @@ interface ControlsProps {
   setNewImageFlag: (newImageFlag: boolean) => void;
   setInit: (init: boolean) => void;
   fetchError: boolean;
+  setSpinner: (spinner: boolean) => void;
+  setErrorMessage: (errorMessage: boolean) => void;
 }
 export type SortDir = 'horz' | 'vert' | 'hove';
 export type ModeValue = 'r' | 'g' | 'b' | 'h' | 's' | 'l';
@@ -41,6 +43,8 @@ const Controls = ({
   setNewImageFlag,
   setInit,
   fetchError,
+  setSpinner,
+  setErrorMessage,
 }: ControlsProps) => {
   // console.log('pixelData', pixelData);
   const [sortDir, setSortDir] = useState<SortDir>('vert');
@@ -82,6 +86,7 @@ const Controls = ({
     const pressedButton = event.currentTarget.value;
     switch (pressedButton) {
       case 'Sort': {
+        setSpinner(true);
         sortImage();
         break;
       }
@@ -93,7 +98,8 @@ const Controls = ({
         break;
       case 'Refresh':
         if (fetchError) {
-          console.log('There was an error retrieving a new image');
+          setErrorMessage(true);
+          // console.log('There was an error retrieving a new image');
           break;
         }
         setSortedImage(undefined);
