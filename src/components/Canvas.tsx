@@ -1,3 +1,4 @@
+import { styled } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import { useState, useEffect, useRef, MutableRefObject } from 'react';
 import useNewImage, { NewImageObject } from '../hooks/useNewImage';
@@ -12,6 +13,10 @@ interface ImageProps {
   newImageCache: NewImageObject | undefined;
   init: boolean;
 }
+
+const Figure = styled('figure')({
+  margin: 0,
+})
 
 const initImage = {
   desktop: '/assets/heads.jpg',
@@ -98,7 +103,7 @@ const Canvas = ({
   return (
     <>
       <canvas id="cacheCanvas" ref={cacheRef} width={720} height={480}></canvas>
-      <figure>
+      <Figure>
         {/* <div className="topRule"></div> */}
         {/* <div className="botRule"></div> */}
         <canvas
@@ -112,7 +117,7 @@ const Canvas = ({
           captionName={captionName}
           captionLink={captionLink}
         />
-      </figure>
+      </Figure>
     </>
   );
 };

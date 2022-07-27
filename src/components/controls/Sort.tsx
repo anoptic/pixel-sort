@@ -27,6 +27,7 @@ interface SortProps {
 }
 
 const boxProps = {
+  backgroundColor: 'background.paper',
   border: 1,
   borderRadius: 1,
   padding: '0.5rem 2rem 1rem',

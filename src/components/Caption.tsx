@@ -1,3 +1,5 @@
+import { Link, styled } from '@mui/material';
+import { fontSize } from '@mui/system';
 import { NewImageObject } from '../hooks/useNewImage';
 
 interface CaptionProps {
@@ -6,31 +8,49 @@ interface CaptionProps {
   captionLink: string | undefined;
 }
 
+const FigCaption = styled('figcaption')({
+  fontFamily: 'inherit',
+  fontSize: '12px',
+  padding: '0 4rem',
+  textAlign: 'right',
+})
+const Anchor = styled('a')({
+  color: 'error',
+  textDecoration: 'none',
+  '& .MuiLink-root': {
+    color: 'error',
+  },
+});
+
 const Caption = ({ init, captionName, captionLink }: CaptionProps) => {
   // console.log(newImageFlag);
 
   if (init) {
-    return <figcaption>Colorful heads</figcaption>;
+    return <FigCaption>Colorful heads</FigCaption>;
   }
   return (
-    <figcaption>
+    <FigCaption>
       Photo by{' '}
-      <a
+      <Link
+        color="text.secondary"
+        underline="hover"
+        href={captionLink + '?utm_source=your_app_name&utm_medium=referral'}
         target="_blank"
         rel="noreferrer"
-        href={captionLink + '?utm_source=your_app_name&utm_medium=referral'}
       >
         {captionName}
-      </a>{' '}
+      </Link>{' '}
       on{' '}
-      <a
+      <Link
+        color="text.secondary"
+        underline="hover"
         target="_blank"
         rel="noreferrer"
         href="https://unsplash.com/?utm_source=your_app_name&utm_medium=referral"
       >
         Unsplash
-      </a>
-    </figcaption>
+      </Link>
+    </FigCaption>
   );
 };
 

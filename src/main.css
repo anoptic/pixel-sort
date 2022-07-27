@@ -67,12 +67,12 @@
   width: max-content;
 } */
 
-figcaption {
+/* figcaption {
   font-family: inherit;
   padding: 0 3rem;
   text-align: right;
   font-size: 14px;
-}
+} */
 
 /* .topRule {
   position: absolute;
@@ -95,4 +95,12 @@ figcaption {
 
 /* .select-item {
   line-height: 0.1rem;
+} */
+
+/* a:visited {
+  color: #0f0;
+}
+
+a:hover {
+  color: #ff0;
 } */
