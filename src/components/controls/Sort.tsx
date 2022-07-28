@@ -19,7 +19,7 @@ interface SortProps {
     event: React.ChangeEvent<HTMLInputElement>,
     value: string
   ) => void;
-  modeValue: ModeValue;
+  // modeValue: ModeValue;
   handleSelect: (
     event: SelectChangeEvent<ModeValue>,
     child: React.ReactNode
@@ -34,7 +34,7 @@ const boxProps = {
   width: 260,
 };
 
-const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
+const Sort = ({ handleRadio, handleSelect }: SortProps) => {
   // console.log(props);
   // const [modeValue, setModeValue] = useState<string | null>('r');
   const theme = useTheme();
@@ -99,12 +99,14 @@ const Sort = ({ handleRadio, modeValue, handleSelect }: SortProps) => {
         <FormControl>
           <FormLabel id="sortModeLabel">Sort Mode</FormLabel>
           <Select
-            value={modeValue}
+            // value={modeValue}
+            defaultValue='r'
             onChange={handleSelect}
             sx={{
               padding: '0 0',
               width: 180,
               '& .MuiListSubheader-root': {
+                // backgroundColor: 'primary.main',
                 fontSize: '0.5rem',
                 fontWeight: 700,
                 lineHeight: '32px',

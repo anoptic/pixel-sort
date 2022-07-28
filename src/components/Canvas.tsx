@@ -66,7 +66,7 @@ const Canvas = ({
           sortedCanvas.data[i] = sortedImage[i];
         });
         imageContext.putImageData(sortedCanvas, 0, 0);
-        // setSpinner(false);
+        setSpinner(false);
         setImageDL(imageCanvas.toDataURL());
       } else if (newImageObject) {
         imageContext.putImageData(newImageObject, 0, 0);

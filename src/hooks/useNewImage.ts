@@ -29,7 +29,7 @@ const useNewImage = () => {
   const { data, error, isLoading, isError } = useQuery(['random'], fetcher, {
     staleTime: Infinity,
     // retry: false,
-    enabled: false,
+    // enabled: false,
   });
 
   const newImg: NewImageObject = {

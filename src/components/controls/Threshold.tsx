@@ -59,7 +59,7 @@ const Threshold = ({ handleThreshold }: ThresholdProps) => {
         borderColor: theme.palette.divider,
         borderRadius: 1,
         margin: '1rem 0',
-        padding: '0.5rem 2rem',
+        padding: '0.5rem 2rem 1rem',
       }}
     >
       <FormGroup>
@@ -86,10 +86,25 @@ const Threshold = ({ handleThreshold }: ThresholdProps) => {
             '& .MuiSlider-thumb:before': {
               boxShadow: 0,
             },
+            '& .MuiSlider-thumb:after': {
+              height: '24px',
+              width: '24px',
+            },
+            '& .MuiSlider-rail': {
+              height: '6px',
+            }
           }}
         />
         <FormControlLabel
-          control={<Checkbox checked={checkbox} onChange={handleCheckbox} />}
+          control={
+            <Checkbox
+              checked={checkbox}
+              onChange={handleCheckbox}
+              sx={{
+                padding: '0 9px',
+              }}
+            />
+          }
           label="Invert"
         />
       </FormGroup>

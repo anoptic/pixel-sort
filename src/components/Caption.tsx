@@ -14,19 +14,21 @@ const FigCaption = styled('figcaption')({
   padding: '0 4rem',
   textAlign: 'right',
 })
-const Anchor = styled('a')({
-  color: 'error',
-  textDecoration: 'none',
-  '& .MuiLink-root': {
-    color: 'error',
-  },
-});
+// const Anchor = styled('a')({
+//   color: 'error',
+//   textDecoration: 'none',
+//   '& .MuiLink-root': {
+//     color: 'error',
+//   },
+// });
 
 const Caption = ({ init, captionName, captionLink }: CaptionProps) => {
   // console.log(newImageFlag);
 
   if (init) {
-    return <FigCaption>Colorful heads</FigCaption>;
+    return <FigCaption sx={{
+      visibility: 'hidden',
+    }}>Colorful heads</FigCaption>;
   }
   return (
     <FigCaption>

@@ -31,12 +31,14 @@ const Sorter = () => {
   const [newImageFlag, setNewImageFlag] = useState(false);
   const [init, setInit] = useState(true);
   const [spinner, setSpinner] = useState(false);
+  const [saveError, setSaveError] = useState(false);
   const [errorMessage, setErrorMessage] = useState(false);
   // const newImageCache = useNewImage();
   const fetchResponse = useNewImage();
 
-  const handleBackdrop = () => setSpinner(false);
+  // const handleSpinner = () => setSpinner(false);
   const handleErrorMessage = () => setErrorMessage(false);
+  const handleSaveError = () => setSaveError(false);
 
   useEffect(() => {
     if (imageData) {
@@ -48,10 +50,10 @@ const Sorter = () => {
 
   return (
     <main>
-      <Backdrop
+      {/* <Backdrop
         open={spinner}
         // transitionDuration={0}
-        onClick={handleBackdrop}
+        // onClick={handleBackdrop}
         sx={{
           color: '#fff',
           display: 'flex',
@@ -70,7 +72,65 @@ const Sorter = () => {
           Sorting…please wait
         </Typography>
         <CircularProgress color="inherit" />
-      </Backdrop>
+      </Backdrop> */}
+
+      <Dialog
+        open={spinner}
+        // onClick={handleSpinner}
+        maxWidth="md"
+        sx={{
+          position: 'absolute',
+          top: '-50%',
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          boxShadow: 4,
+          '& .MuiDialogContent-root': {
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+          },
+          '& .MuiDialogContentText-root': {
+            color: 'text.primary',
+            fontSize: 16,
+            fontWeight: 700,
+            margin: '16px 0 0',
+          },
+        }}
+      >
+        <DialogContent>
+          <CircularProgress />
+          <DialogContentText>Sorting…please wait</DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          {/* <Button onClick={handleSaveError}>Click anywhere to continue</Button> */}
+        </DialogActions>
+      </Dialog>
+
+      <Dialog
+        open={saveError}
+        onClose={handleSaveError}
+        maxWidth="md"
+        sx={{
+          position: 'absolute',
+          top: '-50%',
+          zIndex: (theme) => theme.zIndex.drawer + 1,
+          boxShadow: 4,
+          '& .MuiDialogContentText-root': {
+            color: 'text.primary',
+            fontSize: 16,
+            fontWeight: 700,
+          },
+        }}
+      >
+        <DialogContent>
+          <DialogContentText>
+            Unable to save an unsorted image. Please sort image first.
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleSaveError}>Click anywhere to continue</Button>
+        </DialogActions>
+      </Dialog>
 
       <Dialog
         open={errorMessage}
@@ -123,6 +183,8 @@ const Sorter = () => {
         fetchError={fetchResponse ? false : true}
         setSpinner={setSpinner}
         setErrorMessage={setErrorMessage}
+        setSaveError={setSaveError}
+        setImageDL={setImageDL}
       />
     </main>
   );

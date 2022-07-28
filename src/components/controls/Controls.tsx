@@ -4,7 +4,7 @@ import Sort from './Sort';
 import Threshold from './Threshold';
 import imageSort from '../../funcs/imageSort';
 import { PixelChoice } from '../Sorter';
-import { Box, Divider } from '@mui/material';
+import { Box, Divider, SelectChangeEvent } from '@mui/material';
 
 interface ControlsProps {
   pixelChoice: PixelChoice | null;
@@ -15,6 +15,8 @@ interface ControlsProps {
   fetchError: boolean;
   setSpinner: (spinner: boolean) => void;
   setErrorMessage: (errorMessage: boolean) => void;
+  setSaveError: (saveError: boolean) => void;
+  setImageDL: (imageDl: string | null) => void;
 }
 export type SortDir = 'horz' | 'vert' | 'hove';
 export type ModeValue = 'r' | 'g' | 'b' | 'h' | 's' | 'l';
@@ -27,7 +29,16 @@ export interface SortThreshold {
   value: number;
 }
 
-const sortModeObject = {
+const dlImage = (imageDL: string) => {
+  const dl = document.createElement('a');
+  dl.href = imageDL;
+  dl.download = 'pixelsort.png';
+  document.body.appendChild(dl);
+  dl.click();
+  document.body.removeChild(dl);
+};
+
+const sortModeObject: Record<ModeValue, SortMode> = {
   r: { mode: 'rgb', value: 0 },
   g: { mode: 'rgb', value: 1 },
   b: { mode: 'rgb', value: 2 },
@@ -45,10 +56,12 @@ const Controls = ({
   fetchError,
   setSpinner,
   setErrorMessage,
+  setSaveError,
+  setImageDL,
 }: ControlsProps) => {
   // console.log('pixelData', pixelData);
   const [sortDir, setSortDir] = useState<SortDir>('vert');
-  const [modeValue, setModeValue] = useState<ModeValue>('r');
+  // const [modeValue, setModeValue] = useState<ModeValue>('r');
   const [sortMode, setSortMode] = useState<SortMode>({
     mode: 'rgb',
     value: 0,
@@ -70,16 +83,16 @@ const Controls = ({
     }
   };
 
-  const dlImage = () => {
-    if (imageDL) {
-      const dl = document.createElement('a');
-      dl.href = imageDL;
-      dl.download = 'pixelsort.png';
-      document.body.appendChild(dl);
-      dl.click();
-      document.body.removeChild(dl);
-    }
-  };
+  // const dlImage = () => {
+  //   if (imageDL) {
+  //     const dl = document.createElement('a');
+  //     dl.href = imageDL;
+  //     dl.download = 'pixelsort.png';
+  //     document.body.appendChild(dl);
+  //     dl.click();
+  //     document.body.removeChild(dl);
+  //   }
+  // };
 
   const handleButton = (event: MouseEvent<HTMLButtonElement>) => {
     // console.log(event.currentTarget.value);
@@ -91,9 +104,14 @@ const Controls = ({
         break;
       }
       case 'Save':
-        dlImage();
+        if (imageDL) {
+          dlImage(imageDL);
+          break;
+        }
+        setSaveError(true);
         break;
       case 'Reset':
+        setImageDL(null);
         setSortedImage(undefined);
         break;
       case 'Refresh':
@@ -109,34 +127,14 @@ const Controls = ({
     }
   };
 
-  const handleRadio = (event: any) => {
+  const handleRadio = (event: ChangeEvent<HTMLInputElement>) => {
     // console.log(event.target.value);
-    setSortDir(event.target.value);
+    setSortDir(event.target.value as SortDir);
   };
 
-  const handleSelect = (event: any) => {
-    const value = event.target.value;
-    setModeValue(value);
-    switch (value) {
-      case 'r':
-        setSortMode({ mode: 'rgb', value: 0 });
-        break;
-      case 'g':
-        setSortMode({ mode: 'rgb', value: 1 });
-        break;
-      case 'b':
-        setSortMode({ mode: 'rgb', value: 2 });
-        break;
-      case 'h':
-        setSortMode({ mode: 'hsl', value: 0 });
-        break;
-      case 's':
-        setSortMode({ mode: 'hsl', value: 1 });
-        break;
-      case 'l':
-        setSortMode({ mode: 'hsl', value: 2 });
-        break;
-    }
+  const handleSelect = (event: SelectChangeEvent) => {
+    // console.log(event.target.value);
+    setSortMode(sortModeObject[event.target.value as ModeValue]);
   };
 
   const handleThreshold = (thresh: SortThreshold) => {
@@ -154,7 +152,7 @@ const Controls = ({
       <Buttons handleButton={handleButton} />
       <Sort
         handleRadio={handleRadio}
-        modeValue={modeValue}
+        // modeValue={modeValue}
         handleSelect={handleSelect}
       />
       <Threshold handleThreshold={handleThreshold} />
