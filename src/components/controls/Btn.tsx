@@ -1,6 +1,5 @@
 import { Button, Tooltip, useTheme } from '@mui/material';
 import { MouseEvent, ReactNode } from 'react';
-// import { ButtonsProps } from "./Buttons";
 
 interface BtnProps {
   children: ReactNode;
@@ -10,8 +9,6 @@ interface BtnProps {
 }
 
 const Btn = ({ children, label, variant, handleButton }: BtnProps) => {
-  // console.log(children);
-  // const theme = useTheme();
 
   return (
     <>

@@ -21,18 +21,18 @@ const imagePrep = (imageData: Uint8ClampedArray) => {
     const r = pixel[0] / 255,
       g = pixel[1] / 255,
       b = pixel[2] / 255;
-    const cmin = Math.min(r, g, b),
-      cmax = Math.max(r, g, b),
-      delta = cmax - cmin;
-    let l = (cmax + cmin) / 2;
-    let s = !delta ? 0 : delta / (1 - Math.abs(2 * l - 1));
-    let h = !delta
+    const colorMin = Math.min(r, g, b),
+      colorMax = Math.max(r, g, b),
+      colorDelta = colorMax - colorMin;
+    let l = (colorMax + colorMin) / 2;
+    let s = !colorDelta ? 0 : colorDelta / (1 - Math.abs(2 * l - 1));
+    let h = !colorDelta
       ? 0
-      : cmax == r
-      ? (g - b) / delta
-      : cmax == g
-      ? 2 + (b - r) / delta
-      : 4 + (r - g) / delta;
+      : colorMax == r
+      ? (g - b) / colorDelta
+      : colorMax == g
+      ? 2 + (b - r) / colorDelta
+      : 4 + (r - g) / colorDelta;
 
     h = Math.floor(60 * (h < 0 ? h + 6 : h));
     s = Math.floor(s * 100);

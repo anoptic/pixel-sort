@@ -2,26 +2,19 @@ import { useEffect, useState } from 'react';
 import Controls from './controls/Controls';
 import Canvas from './Canvas';
 import imagePrep from '../funcs/imagePrep';
-import useNewImage, { NewImageObject } from '../hooks/useNewImage';
-import {
-  Backdrop,
-  Button,
-  CircularProgress,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  Typography,
-} from '@mui/material';
-import { fontWeight } from '@mui/system';
+import useNewImage from '../hooks/useNewImage';
+import Messages from './Messages';
 
 export interface PixelChoice {
   rgb: number[][];
   hsl: number[][];
 }
+export interface Message {
+  open: boolean,
+  type: 'sort' | 'save' | 'refresh' | null,
+}
 
 const Sorter = () => {
-  // console.log('Sorter');
   const [imageData, setImageData] = useState<Uint8ClampedArray | null>(null);
   const [sortedImage, setSortedImage] = useState<number[] | undefined>(
     undefined
@@ -30,19 +23,11 @@ const Sorter = () => {
   const [imageDL, setImageDL] = useState<string | null>(null);
   const [newImageFlag, setNewImageFlag] = useState(false);
   const [init, setInit] = useState(true);
-  const [spinner, setSpinner] = useState(false);
-  const [saveError, setSaveError] = useState(false);
-  const [errorMessage, setErrorMessage] = useState(false);
-  // const newImageCache = useNewImage();
+  const [message, setMessage] = useState<Message>({ open: false, type: null});
   const fetchResponse = useNewImage();
-
-  // const handleSpinner = () => setSpinner(false);
-  const handleErrorMessage = () => setErrorMessage(false);
-  const handleSaveError = () => setSaveError(false);
 
   useEffect(() => {
     if (imageData) {
-      // console.log('data', imageData);
       const { imagePixelsRGB, imagePixelsHSL } = imagePrep(imageData);
       setPixelChoice({ rgb: imagePixelsRGB, hsl: imagePixelsHSL });
     }
@@ -50,118 +35,7 @@ const Sorter = () => {
 
   return (
     <main>
-      {/* <Backdrop
-        open={spinner}
-        // transitionDuration={0}
-        // onClick={handleBackdrop}
-        sx={{
-          color: '#fff',
-          display: 'flex',
-          flexDirection: 'column',
-          position: 'absolute',
-          top: '-50%',
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-        }}
-      >
-        <Typography
-          variant="h6"
-          sx={{
-            marginBottom: 2,
-          }}
-        >
-          Sorting…please wait
-        </Typography>
-        <CircularProgress color="inherit" />
-      </Backdrop> */}
-
-      <Dialog
-        open={spinner}
-        // onClick={handleSpinner}
-        maxWidth="md"
-        sx={{
-          position: 'absolute',
-          top: '-50%',
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-          boxShadow: 4,
-          '& .MuiDialogContent-root': {
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-            alignItems: 'center',
-          },
-          '& .MuiDialogContentText-root': {
-            color: 'text.primary',
-            fontSize: 16,
-            fontWeight: 700,
-            margin: '16px 0 0',
-          },
-        }}
-      >
-        <DialogContent>
-          <CircularProgress />
-          <DialogContentText>Sorting…please wait</DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          {/* <Button onClick={handleSaveError}>Click anywhere to continue</Button> */}
-        </DialogActions>
-      </Dialog>
-
-      <Dialog
-        open={saveError}
-        onClose={handleSaveError}
-        maxWidth="md"
-        sx={{
-          position: 'absolute',
-          top: '-50%',
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-          boxShadow: 4,
-          '& .MuiDialogContentText-root': {
-            color: 'text.primary',
-            fontSize: 16,
-            fontWeight: 700,
-          },
-        }}
-      >
-        <DialogContent>
-          <DialogContentText>
-            Unable to save an unsorted image. Please sort image first.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleSaveError}>Click anywhere to continue</Button>
-        </DialogActions>
-      </Dialog>
-
-      <Dialog
-        open={errorMessage}
-        onClose={handleErrorMessage}
-        maxWidth="md"
-        sx={{
-          position: 'absolute',
-          top: '-50%',
-          zIndex: (theme) => theme.zIndex.drawer + 1,
-          boxShadow: 4,
-          // '& .MuiDialogContent-root': {
-          //   backgroundColor: 'primary.dark',
-          // },
-          '& .MuiDialogContentText-root': {
-            color: 'text.primary',
-            fontSize: 16,
-            fontWeight: 700,
-          },
-        }}
-      >
-        <DialogContent>
-          <DialogContentText>
-            An error ocurred while retrieving a new file. Please try again.
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleErrorMessage}>
-            Click anywhere to continue
-          </Button>
-        </DialogActions>
-      </Dialog>
+      <Messages message={message} setMessage={setMessage} />
 
       <Canvas
         sortedImage={sortedImage}
@@ -171,7 +45,7 @@ const Sorter = () => {
         setNewImageFlag={setNewImageFlag}
         newImageCache={fetchResponse}
         init={init}
-        setSpinner={setSpinner}
+        setMessage={setMessage}
       />
 
       <Controls
@@ -181,10 +55,8 @@ const Sorter = () => {
         setNewImageFlag={setNewImageFlag}
         setInit={setInit}
         fetchError={fetchResponse ? false : true}
-        setSpinner={setSpinner}
-        setErrorMessage={setErrorMessage}
-        setSaveError={setSaveError}
         setImageDL={setImageDL}
+        setMessage={setMessage}
       />
     </main>
   );

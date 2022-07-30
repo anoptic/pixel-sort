@@ -11,7 +11,6 @@ import {
   SelectChangeEvent,
   useTheme,
 } from '@mui/material';
-import { useState } from 'react';
 import { ModeValue, SortDir } from './Controls';
 
 interface SortProps {
@@ -19,7 +18,6 @@ interface SortProps {
     event: React.ChangeEvent<HTMLInputElement>,
     value: string
   ) => void;
-  // modeValue: ModeValue;
   handleSelect: (
     event: SelectChangeEvent<ModeValue>,
     child: React.ReactNode
@@ -35,8 +33,6 @@ const boxProps = {
 };
 
 const Sort = ({ handleRadio, handleSelect }: SortProps) => {
-  // console.log(props);
-  // const [modeValue, setModeValue] = useState<string | null>('r');
   const theme = useTheme();
 
   return (
@@ -99,22 +95,16 @@ const Sort = ({ handleRadio, handleSelect }: SortProps) => {
         <FormControl>
           <FormLabel id="sortModeLabel">Sort Mode</FormLabel>
           <Select
-            // value={modeValue}
             defaultValue='r'
             onChange={handleSelect}
             sx={{
               padding: '0 0',
               width: 180,
               '& .MuiListSubheader-root': {
-                // backgroundColor: 'primary.main',
                 fontSize: '0.5rem',
                 fontWeight: 700,
                 lineHeight: '32px',
               },
-              // '& .MuiMenuItem-root': {
-              //   lineHeight: 1,
-              //   // color: '#112233',
-              // },
               '& .MuiMenuItem-root.Mui-selected': {
                 backgroundColor: 'primary.main',
               }

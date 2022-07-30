@@ -1,8 +1,9 @@
 import { styled } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
-import { useState, useEffect, useRef, MutableRefObject } from 'react';
-import useNewImage, { NewImageObject } from '../hooks/useNewImage';
+import { useEffect, useRef } from 'react';
+import { NewImageObject } from '../hooks/useNewImage';
 import Caption from './Caption';
+import { Message } from './Sorter';
 
 interface ImageProps {
   sortedImage?: number[];
@@ -12,12 +13,12 @@ interface ImageProps {
   setNewImageFlag: (newImageFlag: boolean) => void;
   newImageCache: NewImageObject | undefined;
   init: boolean;
-  setSpinner: (spinner: boolean) => void;
+  setMessage: (message: Message) => void;
 }
 
 const Figure = styled('figure')({
   margin: 0,
-})
+});
 
 const initImage = {
   desktop: '/assets/heads.jpg',
@@ -40,9 +41,8 @@ const Canvas = ({
   setNewImageFlag,
   newImageCache,
   init,
-  setSpinner,
+  setMessage,
 }: ImageProps) => {
-  // console.log('Canvas');
   const imageRef = useRef<HTMLCanvasElement>({} as HTMLCanvasElement);
   const cacheRef = useRef<HTMLCanvasElement>({} as HTMLCanvasElement);
   const cacheData = useRef<ImageData | null>(null);
@@ -66,7 +66,7 @@ const Canvas = ({
           sortedCanvas.data[i] = sortedImage[i];
         });
         imageContext.putImageData(sortedCanvas, 0, 0);
-        setSpinner(false);
+        setMessage({open: false, type: 'sort'});
         setImageDL(imageCanvas.toDataURL());
       } else if (newImageObject) {
         imageContext.putImageData(newImageObject, 0, 0);
@@ -92,12 +92,10 @@ const Canvas = ({
 
     if (cacheContext) {
       if (newImageCache) {
-        // console.log('x', newImageCache);
         cacheImage.src = newImageCache.newImage;
         cacheImage.onload = () => {
           cacheContext.drawImage(cacheImage, 0, 0);
           cacheData.current = cacheContext.getImageData(0, 0, 720, 480);
-          // console.log('y', cacheData.current);
         };
       }
     }
@@ -107,8 +105,6 @@ const Canvas = ({
     <>
       <canvas id="cacheCanvas" ref={cacheRef} width={720} height={480}></canvas>
       <Figure>
-        {/* <div className="topRule"></div> */}
-        {/* <div className="botRule"></div> */}
         <canvas
           id="imageCanvas"
           ref={imageRef}

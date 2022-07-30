@@ -13,26 +13,18 @@ import { SortThreshold } from './Controls';
 interface ThresholdProps {
   handleThreshold: (thresh: SortThreshold) => void;
 }
-interface TrackInfo {
-  infoMessage: 'greater' | 'less';
-  trackMode: 'normal' | 'inverted';
-}
 type Info = 'greater' | 'less';
 type Invert = 'normal' | 'inverted';
 
 const Threshold = ({ handleThreshold }: ThresholdProps) => {
-  // console.log(props);
   const [slide, setSlide] = useState(63);
   const [checkbox, setCheckbox] = useState(false);
   const [info, setInfo] = useState<Info>('greater');
   const [invert, setInvert] = useState<Invert>('inverted');
-  // const trackInfo: TrackInfo = {
-  //   infoMessage: 'greater',
-  //   trackMode: 'normal',
-  // };
   const theme = useTheme();
 
   const handleSlide = (event: any) => {
+    console.log(event.target);
     setSlide(() => event.target.value);
   };
   const handleCheckbox = () => {
@@ -42,12 +34,6 @@ const Threshold = ({ handleThreshold }: ThresholdProps) => {
   };
 
   useEffect(() => {
-    // trackInfo.infoMessage = 'greater';
-    // trackInfo.trackMode = 'normal';
-    // if (checkbox) {
-    //   trackInfo.infoMessage = 'less';
-    //   trackInfo.trackMode = 'inverted';
-    // }
     handleThreshold({ inverted: checkbox, value: slide });
   }, [slide, checkbox]);
 

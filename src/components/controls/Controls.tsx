@@ -3,8 +3,9 @@ import Buttons from './Buttons';
 import Sort from './Sort';
 import Threshold from './Threshold';
 import imageSort from '../../funcs/imageSort';
-import { PixelChoice } from '../Sorter';
+import { Message, PixelChoice } from '../Sorter';
 import { Box, Divider, SelectChangeEvent } from '@mui/material';
+
 
 interface ControlsProps {
   pixelChoice: PixelChoice | null;
@@ -13,10 +14,8 @@ interface ControlsProps {
   setNewImageFlag: (newImageFlag: boolean) => void;
   setInit: (init: boolean) => void;
   fetchError: boolean;
-  setSpinner: (spinner: boolean) => void;
-  setErrorMessage: (errorMessage: boolean) => void;
-  setSaveError: (saveError: boolean) => void;
   setImageDL: (imageDl: string | null) => void;
+  setMessage: (message: Message) => void;
 }
 export type SortDir = 'horz' | 'vert' | 'hove';
 export type ModeValue = 'r' | 'g' | 'b' | 'h' | 's' | 'l';
@@ -54,14 +53,10 @@ const Controls = ({
   setNewImageFlag,
   setInit,
   fetchError,
-  setSpinner,
-  setErrorMessage,
-  setSaveError,
   setImageDL,
+  setMessage,
 }: ControlsProps) => {
-  // console.log('pixelData', pixelData);
   const [sortDir, setSortDir] = useState<SortDir>('vert');
-  // const [modeValue, setModeValue] = useState<ModeValue>('r');
   const [sortMode, setSortMode] = useState<SortMode>({
     mode: 'rgb',
     value: 0,
@@ -83,41 +78,28 @@ const Controls = ({
     }
   };
 
-  // const dlImage = () => {
-  //   if (imageDL) {
-  //     const dl = document.createElement('a');
-  //     dl.href = imageDL;
-  //     dl.download = 'pixelsort.png';
-  //     document.body.appendChild(dl);
-  //     dl.click();
-  //     document.body.removeChild(dl);
-  //   }
-  // };
-
   const handleButton = (event: MouseEvent<HTMLButtonElement>) => {
-    // console.log(event.currentTarget.value);
     const pressedButton = event.currentTarget.value;
     switch (pressedButton) {
       case 'Sort': {
-        setSpinner(true);
+        setMessage({ open: true, type: 'sort' });
         sortImage();
         break;
       }
+      case 'Reset':
+        setImageDL(null);
+        setSortedImage(undefined);
+        break;
       case 'Save':
         if (imageDL) {
           dlImage(imageDL);
           break;
         }
-        setSaveError(true);
-        break;
-      case 'Reset':
-        setImageDL(null);
-        setSortedImage(undefined);
+        setMessage({ open: true, type: 'save' });
         break;
       case 'Refresh':
         if (fetchError) {
-          setErrorMessage(true);
-          // console.log('There was an error retrieving a new image');
+          setMessage({ open: true, type: 'refresh' });
           break;
         }
         setSortedImage(undefined);
@@ -128,17 +110,14 @@ const Controls = ({
   };
 
   const handleRadio = (event: ChangeEvent<HTMLInputElement>) => {
-    // console.log(event.target.value);
     setSortDir(event.target.value as SortDir);
   };
 
   const handleSelect = (event: SelectChangeEvent) => {
-    // console.log(event.target.value);
     setSortMode(sortModeObject[event.target.value as ModeValue]);
   };
 
   const handleThreshold = (thresh: SortThreshold) => {
-    // console.log(thresh);
     setThreshold(thresh);
   };
 
@@ -152,7 +131,6 @@ const Controls = ({
       <Buttons handleButton={handleButton} />
       <Sort
         handleRadio={handleRadio}
-        // modeValue={modeValue}
         handleSelect={handleSelect}
       />
       <Threshold handleThreshold={handleThreshold} />
