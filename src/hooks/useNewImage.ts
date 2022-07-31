@@ -30,7 +30,7 @@ const useNewImage = () => {
     staleTime: Infinity,
     retry: 3,
     retryDelay: (attempt) => attempt * 10000,
-    // enabled: false,
+    enabled: false,
   });
 
   const newImg: NewImageObject = {

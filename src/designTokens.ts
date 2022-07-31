@@ -16,6 +16,18 @@ import { PaletteMode } from '@mui/material';
 // };
 
 export const getDesignTokens = (mode: PaletteMode) => ({
+  components: {
+    MuiCssBaseline: {
+      styleOverrides: `
+        .test {
+          color: yellow;
+        },
+        #cacheCanvas {
+          display: none;
+        }
+      `,
+    },
+  },
   breakpoints: {
     values: {
       xs: 0,

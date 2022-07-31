@@ -77,7 +77,7 @@ const Canvas = ({
           queryClient.invalidateQueries(['random']);
         }
       } else {
-        displayImage.src = initImage.desktop;
+        displayImage.src = initImage.mobile;
         displayImage.onload = () => {
           imageContext.drawImage(displayImage, 0, 0);
           imageData = imageContext.getImageData(0, 0, 720, 480);
@@ -103,12 +103,12 @@ const Canvas = ({
 
   return (
     <>
-      <canvas id="cacheCanvas" ref={cacheRef} width={720} height={480}></canvas>
+      <canvas id="cacheCanvas" ref={cacheRef} width={360} height={480}></canvas>
       <Figure>
         <canvas
           id="imageCanvas"
           ref={imageRef}
-          width={720}
+          width={360}
           height={480}
         ></canvas>
         <Caption

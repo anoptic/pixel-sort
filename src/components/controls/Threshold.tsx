@@ -24,7 +24,7 @@ const Threshold = ({ handleThreshold }: ThresholdProps) => {
   const theme = useTheme();
 
   const handleSlide = (event: any) => {
-    console.log(event.target);
+    // console.log(event.target);
     setSlide(() => event.target.value);
   };
   const handleCheckbox = () => {

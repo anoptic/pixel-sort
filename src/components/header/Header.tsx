@@ -33,6 +33,7 @@ const Header = () => {
       >
         Pixel Sorter
       </Typography>
+      <div id='test' className='test'>TEST</div>
       <Stack
         direction="row"
         divider={<Divider orientation="vertical" variant="inset" flexItem />}
