@@ -1,4 +1,5 @@
-import { GitHub } from '@mui/icons-material';
+// import { GitHub } from '@mui/icons-material';
+import GitHubIcon from '@mui/icons-material/GitHub';
 import { IconButton, Tooltip } from '@mui/material';
 
 interface LinkIconProps {
@@ -9,7 +10,7 @@ const LinkIcon = ({ clickLink }: LinkIconProps) => {
   return (
     <Tooltip title="View source" placement="bottom">
       <IconButton aria-label="github" onClick={clickLink}>
-        <GitHub />
+        <GitHubIcon />
       </IconButton>
     </Tooltip>
   );

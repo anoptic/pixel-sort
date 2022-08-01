@@ -16,8 +16,6 @@ interface MessageProps {
 }
 
 const Messages = ({ message, setMessage }: MessageProps) => {
-  const matches = useMediaQuery('(max-width: 767px)');
-  const w = matches ? '80%' : '40%';
   const handleClose = () => setMessage({ open: false, type: null });
 
   const messages = {
@@ -73,7 +71,7 @@ const Messages = ({ message, setMessage }: MessageProps) => {
           zIndex: (theme) => theme.zIndex.drawer + 1,
           boxShadow: 4,
           '& .MuiDialog-paper': {
-            width: {w},
+            width: 300,
           },
           '& .MuiDialogContent-root': {
             display: 'flex',

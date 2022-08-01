@@ -1,4 +1,4 @@
-import { Link, styled } from '@mui/material';
+import { Link, styled, useMediaQuery } from '@mui/material';
 
 interface CaptionProps {
   init: boolean;
@@ -14,13 +14,17 @@ const FigCaption = styled('figcaption')({
 })
 
 const Caption = ({ init, captionName, captionLink }: CaptionProps) => {
+  const matches = useMediaQuery('(max-width: 767px)');
+
   if (init) {
     return <FigCaption sx={{
       visibility: 'hidden',
     }}>Colorful heads</FigCaption>;
   }
   return (
-    <FigCaption>
+    <FigCaption sx={[
+      matches && {padding: '0 1rem'},
+    ]}>
       Photo by{' '}
       <Link
         color="text.secondary"

@@ -1,3 +1,4 @@
+import { useMediaQuery } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
 export interface NewImageObject {
@@ -21,6 +22,7 @@ const fetcher = async () => {
 };
 
 const useNewImage = () => {
+  const matches = useMediaQuery('(max-width: 767px)');
   const { data, error } = useQuery(['random'], fetcher, {
     staleTime: Infinity,
     retry: 3,
@@ -39,7 +41,7 @@ const useNewImage = () => {
   }
 
   if (data) {
-    const randomImage = data.urls.raw + '&w=720&h=480&fit=crop&crop=faces,center';
+    const randomImage = data.urls.raw + (matches ? '&w=360&h=480&fit=crop&crop=faces,center' : '&w=720&h=480&fit=crop&crop=faces,center');
     const imageCreditLink = data.user.links.html;
     const imageCreditName = data.user.name;
     newImg.newImage = randomImage;
