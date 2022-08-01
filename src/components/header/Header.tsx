@@ -1,4 +1,4 @@
-import { Box, Divider, Stack, Typography } from '@mui/material';
+import { Box, Divider, Stack, Typography, useMediaQuery } from '@mui/material';
 import LinkIcon from './LinkIcon';
 import ModeSwitch from './ModeSwitch';
 
@@ -13,15 +13,18 @@ const clickLink = () => {
 };
 
 const Header = () => {
+  const matches = useMediaQuery('(max-width: 767px)');
 
   return (
     <Box
-      sx={{
-        alignItems: 'center',
-        display: 'flex',
-        justifyContent: 'space-between',
-        margin: '0.5rem 4rem',
-      }}
+      sx={[
+        { alignItems: 'center' },
+        { display: 'flex' },
+        { justifyContent: 'space-between' },
+        { padding: '0.5rem 4rem' },
+        matches && { padding: '0.5rem 1rem' },
+        {width: '100%'},
+      ]}
     >
       <Typography
         component="h1"
@@ -33,7 +36,7 @@ const Header = () => {
       >
         Pixel Sorter
       </Typography>
-      
+
       <Stack
         direction="row"
         divider={<Divider orientation="vertical" variant="inset" flexItem />}

@@ -9,6 +9,7 @@ import {
   RadioGroup,
   Select,
   SelectChangeEvent,
+  useMediaQuery,
   useTheme,
 } from '@mui/material';
 import { ModeValue, SortDir } from './Controls';
@@ -29,18 +30,22 @@ const boxProps = {
   border: 1,
   borderRadius: 1,
   padding: '0.5rem 2rem 1rem',
-  width: 260,
+  width: '100%',
 };
 
 const Sort = ({ handleRadio, handleSelect }: SortProps) => {
   const theme = useTheme();
+  const matches = useMediaQuery('(max-width: 767px)');
 
   return (
     <Box
-      sx={{
-        display: 'flex',
-        justifyContent: 'space-between',
-      }}
+      sx={[
+        {display: 'flex'},
+        {gap: '1rem'},
+        {justifyContent: 'space-between'},
+        {margin: '0 0 1rem'},
+        matches && {flexDirection: 'column'},
+      ]}
     >
       <Box
         sx={{

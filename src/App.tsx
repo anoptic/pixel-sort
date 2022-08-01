@@ -13,16 +13,17 @@ import {
   CssBaseline,
   PaletteMode,
   ThemeProvider,
+  useMediaQuery,
 } from '@mui/material';
 import { getDesignTokens } from './designTokens';
 
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 export const ColorModeContext = createContext({ toggleColorMode: () => {} });
-
 const queryClient = new QueryClient();
 
 const App = () => {
   const [mode, setMode] = useState<'light' | 'dark'>('dark');
+  const matches = useMediaQuery('(max-width: 767px)');
 
   const colorMode = useMemo(
     () => ({
@@ -40,18 +41,20 @@ const App = () => {
     <ColorModeContext.Provider value={colorMode}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
-        <Container maxWidth="md" disableGutters>
+        <Container maxWidth={matches ? 'sm' : 'md'} disableGutters>
           <Box
-            sx={{
-              display: 'flex',
-              justifyContent: 'center',
-              width: '100%',
-            }}
+            sx={[
+              {display: 'flex'},
+              {justifyContent: 'center'},
+              {width: '768px'},
+              matches && {width: '392px'},
+            ]}
           >
             <Box
               sx={{
                 display: 'flex',
                 flexDirection: 'column',
+                width: '100%',
               }}
             >
               <QueryClientProvider client={queryClient}>

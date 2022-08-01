@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-// import useSWR from 'swr';
 
 export interface NewImageObject {
   newImage: string;
@@ -21,16 +20,12 @@ const fetcher = async () => {
   return await res.json();
 };
 
-// const fetcher = (url: string) => fetch(url).then((res) => res.json());
-
 const useNewImage = () => {
-  // console.log('useNewImage');
-
-  const { data, error, isLoading, isError } = useQuery(['random'], fetcher, {
+  const { data, error } = useQuery(['random'], fetcher, {
     staleTime: Infinity,
     retry: 3,
     retryDelay: (attempt) => attempt * 10000,
-    enabled: false,
+    // enabled: false,
   });
 
   const newImg: NewImageObject = {
@@ -44,7 +39,6 @@ const useNewImage = () => {
   }
 
   if (data) {
-    // console.log('!!!DATA!!!');
     const randomImage = data.urls.raw + '&w=720&h=480&fit=crop&crop=faces,center';
     const imageCreditLink = data.user.links.html;
     const imageCreditName = data.user.name;

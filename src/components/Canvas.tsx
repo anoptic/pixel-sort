@@ -1,4 +1,4 @@
-import { styled } from '@mui/material';
+import { Box, styled, useMediaQuery } from '@mui/material';
 import { useQueryClient } from '@tanstack/react-query';
 import { useEffect, useRef } from 'react';
 import { NewImageObject } from '../hooks/useNewImage';
@@ -47,6 +47,8 @@ const Canvas = ({
   const cacheRef = useRef<HTMLCanvasElement>({} as HTMLCanvasElement);
   const cacheData = useRef<ImageData | null>(null);
   const queryClient = useQueryClient();
+  const matches = useMediaQuery('(max-width: 767px)');
+  const w = matches ? 360 : 720;
 
   if (newImageFlag) {
     newImageObject = cacheData.current;
@@ -61,31 +63,31 @@ const Canvas = ({
     if (imageContext) {
       let imageData;
       if (sortedImage) {
-        const sortedCanvas = imageContext.createImageData(720, 480);
+        const sortedCanvas = imageContext.createImageData(w, 480);
         sortedCanvas.data.forEach((_, i) => {
           sortedCanvas.data[i] = sortedImage[i];
         });
         imageContext.putImageData(sortedCanvas, 0, 0);
-        setMessage({open: false, type: 'sort'});
+        setMessage({open: false, type: null});
         setImageDL(imageCanvas.toDataURL());
       } else if (newImageObject) {
         imageContext.putImageData(newImageObject, 0, 0);
-        imageData = imageContext.getImageData(0, 0, 720, 480);
+        imageData = imageContext.getImageData(0, 0, w, 480);
         setImageData(imageData.data);
         if (newImageFlag) {
           setNewImageFlag(false);
           queryClient.invalidateQueries(['random']);
         }
       } else {
-        displayImage.src = initImage.desktop;
+        displayImage.src = matches ? initImage.mobile : initImage.desktop;
         displayImage.onload = () => {
           imageContext.drawImage(displayImage, 0, 0);
-          imageData = imageContext.getImageData(0, 0, 720, 480);
+          imageData = imageContext.getImageData(0, 0, w, 480);
           setImageData(imageData.data);
         };
       }
     }
-  }, [sortedImage, newImageObject]);
+  }, [sortedImage, newImageObject, matches]);
 
   useEffect(() => {
     const cacheContext = cacheRef.current.getContext('2d');
@@ -95,7 +97,7 @@ const Canvas = ({
         cacheImage.src = newImageCache.newImage;
         cacheImage.onload = () => {
           cacheContext.drawImage(cacheImage, 0, 0);
-          cacheData.current = cacheContext.getImageData(0, 0, 720, 480);
+          cacheData.current = cacheContext.getImageData(0, 0, w, 480);
         };
       }
     }
@@ -103,14 +105,19 @@ const Canvas = ({
 
   return (
     <>
-      <canvas id="cacheCanvas" ref={cacheRef} width={720} height={480}></canvas>
+      <canvas id="cacheCanvas" ref={cacheRef} width={w} height={480}></canvas>
       <Figure>
-        <canvas
-          id="imageCanvas"
-          ref={imageRef}
-          width={720}
-          height={480}
-        ></canvas>
+        <Box sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}>
+          <canvas
+            id="imageCanvas"
+            ref={imageRef}
+            width={w}
+            height={480}
+          ></canvas>
+        </Box>
         <Caption
           init={init}
           captionName={captionName}

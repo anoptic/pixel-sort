@@ -1,20 +1,5 @@
 import { PaletteMode } from '@mui/material';
 
-// const commonTokens = {
-//   breakpoints: {
-//     values: {
-//       xs: 0,
-//       sm: 0,
-//       md: 768,
-//       lg: 768,
-//       xl: 768,
-//     },
-//   },
-//   typography: {
-//     fontFamily: "'Lato', sans-serif",
-//   },
-// };
-
 export const getDesignTokens = (mode: PaletteMode) => ({
   components: {
     MuiCssBaseline: {
@@ -28,7 +13,7 @@ export const getDesignTokens = (mode: PaletteMode) => ({
   breakpoints: {
     values: {
       xs: 0,
-      sm: 0,
+      sm: 392,
       md: 768,
       lg: 768,
       xl: 768,

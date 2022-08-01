@@ -1,6 +1,4 @@
 import { Link, styled } from '@mui/material';
-import { fontSize } from '@mui/system';
-import { NewImageObject } from '../hooks/useNewImage';
 
 interface CaptionProps {
   init: boolean;
@@ -14,17 +12,8 @@ const FigCaption = styled('figcaption')({
   padding: '0 4rem',
   textAlign: 'right',
 })
-// const Anchor = styled('a')({
-//   color: 'error',
-//   textDecoration: 'none',
-//   '& .MuiLink-root': {
-//     color: 'error',
-//   },
-// });
 
 const Caption = ({ init, captionName, captionLink }: CaptionProps) => {
-  // console.log(newImageFlag);
-
   if (init) {
     return <FigCaption sx={{
       visibility: 'hidden',

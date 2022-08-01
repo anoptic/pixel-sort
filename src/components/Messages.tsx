@@ -1,10 +1,12 @@
 import {
+  Box,
   Button,
   CircularProgress,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
+  useMediaQuery,
 } from '@mui/material';
 import { Message } from './Sorter';
 
@@ -14,6 +16,8 @@ interface MessageProps {
 }
 
 const Messages = ({ message, setMessage }: MessageProps) => {
+  const matches = useMediaQuery('(max-width: 767px)');
+  const w = matches ? '80%' : '40%';
   const handleClose = () => setMessage({ open: false, type: null });
 
   const messages = {
@@ -54,7 +58,10 @@ const Messages = ({ message, setMessage }: MessageProps) => {
   };
 
   return (
-    <>
+    <Box sx={{
+      display: 'flex',
+      justifyContent: 'center',
+    }}>
       <Dialog
         open={message.open}
         onClose={() => handleClose()}
@@ -62,8 +69,12 @@ const Messages = ({ message, setMessage }: MessageProps) => {
         sx={{
           position: 'absolute',
           top: '-50%',
+          width: '100%',
           zIndex: (theme) => theme.zIndex.drawer + 1,
           boxShadow: 4,
+          '& .MuiDialog-paper': {
+            width: {w},
+          },
           '& .MuiDialogContent-root': {
             display: 'flex',
             flexDirection: 'column',
@@ -83,7 +94,7 @@ const Messages = ({ message, setMessage }: MessageProps) => {
       >
         {message.type && messages[message.type]}
       </Dialog>
-    </>
+    </Box>
   );
 };
 

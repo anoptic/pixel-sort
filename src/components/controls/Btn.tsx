@@ -1,4 +1,4 @@
-import { Button, Tooltip, useTheme } from '@mui/material';
+import { Button, Tooltip } from '@mui/material';
 import { MouseEvent, ReactNode } from 'react';
 
 interface BtnProps {

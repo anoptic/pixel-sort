@@ -4,7 +4,7 @@ import Sort from './Sort';
 import Threshold from './Threshold';
 import imageSort from '../../funcs/imageSort';
 import { Message, PixelChoice } from '../Sorter';
-import { Box, Divider, SelectChangeEvent } from '@mui/material';
+import { Box, Divider, SelectChangeEvent, useMediaQuery } from '@mui/material';
 
 
 interface ControlsProps {
@@ -65,6 +65,7 @@ const Controls = ({
     inverted: false,
     value: 127,
   });
+  const matches = useMediaQuery('(max-width: 767px)');
 
   const sortImage = () => {
     if (pixelChoice) {
@@ -123,9 +124,13 @@ const Controls = ({
 
   return (
     <Box
-      sx={{
-        margin: '0 4rem',
-      }}
+      sx={[
+        {margin: '0 4rem'},
+        matches && {margin: '0 1rem'},
+      ]}
+      // sx={{
+      //   margin: '0 4rem',
+      // }}
     >
       <Divider />
       <Buttons handleButton={handleButton} />
