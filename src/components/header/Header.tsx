@@ -4,7 +4,7 @@ import ModeSwitch from './ModeSwitch';
 
 const clickLink = () => {
   const link = document.createElement('a');
-  link.href = 'https://github.com/anoptic';
+  link.href = 'https://github.com/anoptic/pixel-sort';
   link.target = '_blank';
   link.rel = 'noreferrer';
   document.body.appendChild(link);
