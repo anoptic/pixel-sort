@@ -12,7 +12,7 @@ import {
   useMediaQuery,
   useTheme,
 } from '@mui/material';
-import { ModeValue, SortDir } from './Controls';
+import { ModeValue } from './Controls';
 
 interface SortProps {
   handleRadio: (
@@ -40,11 +40,11 @@ const Sort = ({ handleRadio, handleSelect }: SortProps) => {
   return (
     <Box
       sx={[
-        {display: 'flex'},
-        {gap: '1rem'},
-        {justifyContent: 'space-between'},
-        {margin: '0 0 1rem'},
-        matches && {flexDirection: 'column'},
+        { display: 'flex' },
+        { gap: '1rem' },
+        { justifyContent: 'space-between' },
+        { margin: '0 0 1rem' },
+        matches && { flexDirection: 'column' },
       ]}
     >
       <Box
@@ -100,7 +100,7 @@ const Sort = ({ handleRadio, handleSelect }: SortProps) => {
         <FormControl>
           <FormLabel id="sortModeLabel">Sort Mode</FormLabel>
           <Select
-            defaultValue='r'
+            defaultValue="r"
             onChange={handleSelect}
             sx={{
               padding: '0 0',
@@ -112,7 +112,7 @@ const Sort = ({ handleRadio, handleSelect }: SortProps) => {
               },
               '& .MuiMenuItem-root.Mui-selected': {
                 backgroundColor: 'primary.main',
-              }
+              },
             }}
           >
             <ListSubheader

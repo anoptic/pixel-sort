@@ -23,12 +23,11 @@ const Header = () => {
         { justifyContent: 'space-between' },
         { padding: '0.5rem 4rem' },
         matches && { padding: '0.5rem 1rem' },
-        {width: '100%'},
+        { width: '100%' },
       ]}
     >
       <Typography
         component="h1"
-        // variant="h1"
         sx={{
           fontSize: '20px',
           fontWeight: 300,

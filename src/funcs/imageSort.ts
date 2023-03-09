@@ -7,7 +7,7 @@ import { PixelChoice } from '../components/Sorter';
 
 type PixelArray = number[][][];
 type RowArray = number[][];
-type FlatArray = number[];
+
 interface ImageSortProps {
   pixelChoice: PixelChoice;
   sortDir: SortDir;
@@ -21,7 +21,6 @@ const imageSort = ({
   sortMode,
   threshold,
 }: ImageSortProps) => {
-  // console.log(pixelData);
   const makeRows = (pixels: typeof pixelData) => {
     let row: RowArray = [];
     const imgRows: PixelArray = [];
@@ -103,7 +102,6 @@ const imageSort = ({
   };
 
   const showSorted = (rows: PixelArray) => {
-    // console.log(rows);
     let sortedFlat = [];
     const sortedPixels = [...rows.flat()];
 
@@ -111,18 +109,14 @@ const imageSort = ({
       const convertedPixels: RowArray = [];
       const rgb = convertRGB(sortedPixels);
 
-      // console.log('sortedPixels', sortedPixels);
       rgb.forEach((p) => {
         convertedPixels.push(pixelChoice.rgb[p]);
       });
-      // console.log('convertedPixels', convertedPixels);
 
       sortedFlat = [...convertedPixels.flat()];
     } else {
       sortedFlat = [...sortedPixels.flat()];
     }
-
-    // const sortedFlat = [...sortedPixels.flat()];
 
     return sortedFlat;
   };
@@ -154,7 +148,6 @@ const imageSort = ({
   }
 
   const imageSorted = showSorted(sortedImg);
-  // console.log('sorting', imageSorted);
 
   return imageSorted;
 };

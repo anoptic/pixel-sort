@@ -6,7 +6,6 @@ import imageSort from '../../funcs/imageSort';
 import { Message, PixelChoice } from '../Sorter';
 import { Box, Divider, SelectChangeEvent, useMediaQuery } from '@mui/material';
 
-
 interface ControlsProps {
   pixelChoice: PixelChoice | null;
   setSortedImage: (sortedImage: number[] | undefined) => void;
@@ -123,21 +122,10 @@ const Controls = ({
   };
 
   return (
-    <Box
-      sx={[
-        {margin: '0 4rem'},
-        matches && {margin: '0 1rem'},
-      ]}
-      // sx={{
-      //   margin: '0 4rem',
-      // }}
-    >
+    <Box sx={[{ margin: '0 4rem' }, matches && { margin: '0 1rem' }]}>
       <Divider />
       <Buttons handleButton={handleButton} />
-      <Sort
-        handleRadio={handleRadio}
-        handleSelect={handleSelect}
-      />
+      <Sort handleRadio={handleRadio} handleSelect={handleSelect} />
       <Threshold handleThreshold={handleThreshold} />
     </Box>
   );

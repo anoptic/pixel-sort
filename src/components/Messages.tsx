@@ -6,7 +6,6 @@ import {
   DialogActions,
   DialogContent,
   DialogContentText,
-  useMediaQuery,
 } from '@mui/material';
 import { Message } from './Sorter';
 
@@ -25,8 +24,7 @@ const Messages = ({ message, setMessage }: MessageProps) => {
           <CircularProgress />
           <DialogContentText>Sorting…please wait</DialogContentText>
         </DialogContent>
-        <DialogActions>
-        </DialogActions>
+        <DialogActions></DialogActions>
       </>
     ),
     save: (
@@ -56,10 +54,12 @@ const Messages = ({ message, setMessage }: MessageProps) => {
   };
 
   return (
-    <Box sx={{
-      display: 'flex',
-      justifyContent: 'center',
-    }}>
+    <Box
+      sx={{
+        display: 'flex',
+        justifyContent: 'center',
+      }}
+    >
       <Dialog
         open={message.open}
         onClose={() => handleClose()}

@@ -1,4 +1,3 @@
-// import { DarkModeOutlined, LightModeOutlined } from '@mui/icons-material';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import LightModeOutlinedIcon from '@mui/icons-material/LightModeOutlined';
 import { IconButton, Tooltip, useTheme } from '@mui/material';
