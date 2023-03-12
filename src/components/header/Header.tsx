@@ -33,7 +33,7 @@ const Header = () => {
           fontWeight: 300,
         }}
       >
-        Pixel Sorter
+        Pixel Sort
       </Typography>
 
       <Stack
